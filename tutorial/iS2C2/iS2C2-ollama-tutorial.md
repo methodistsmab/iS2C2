@@ -71,7 +71,7 @@ Run with example data with default parameters setting. (You can check the parame
 Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link)
 ```bash
 ./iS2C2.sh \
-  --rds-file "./pbmc_control_example_clean_7_21_25" \
+  --rds-file "./pbmc_control_example_clean_7_21_25.rds" \
   --celltype-colname "seurat_annotations" \
   --condition-colname "condition" \
   --condition1 "control" \
