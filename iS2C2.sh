@@ -40,14 +40,18 @@ LAMBDA="0.5"
 SPECIES="mouse"
 ASSAY="RNA"
 DISEASE="AD"
-RESULTS_DIR="results"
+RESULTS_DIR="results"  # Fixed to "results", not user-customizable
+
+# Create timestamp for this run
+RUN_TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+RUN_OUTPUT_DIR="${RESULTS_DIR}/run_${RUN_TIMESTAMP}"
 
 # LLM Parameters with defaults
 CELL_TYPE=""  # User input required
 DISEASE_CONTEXT="Alzheimer's disease"
 LLM_PROVIDER="ollama"  # "ollama", "gemini", or "openrouter"
 LLM_MODEL="llama3.2"
-TEMPERATURE="0.7"
+TEMPERATURE="0.4"
 MAX_TOKENS="100000"
 CONTEXT_SIZE="131072"
 SEED="512"
@@ -124,7 +128,6 @@ OPTIONAL PARAMETERS:
     --species STRING               Species: mouse or human (default: mouse)
     --assay STRING                 Assay type: RNA or integrated (default: RNA)
     --disease STRING               Disease context (default: AD)
-    --results-dir DIR              Results output directory (default: results)
     --temperature FLOAT            Model temperature for LLM (default: 0.7)
     --max-tokens INT               Maximum tokens for LLM generation (default: 100000)
     --context-size INT             Context window size for LLM (default: 131072)
@@ -193,7 +196,6 @@ EXAMPLES:
        --permutation-num 500 \
        --species "mouse" \
        --disease "AD" \
-       --results-dir "my_results" \
        --disease-context "Alzheimer's disease" \
        --cell-type "astrocyte-excitatory neuron" \
        --llm-provider "openrouter" \
@@ -201,6 +203,8 @@ EXAMPLES:
        --api-key "your-openrouter-api-key-here" \
        --temperature 0.3 \
        --max-tokens 100000
+
+Note: All results are automatically saved to the "results" directory in a timestamped subfolder (e.g., results/run_20241201_143052/).
 
 EOF
 }
@@ -340,10 +344,6 @@ while [[ $# -gt 0 ]]; do
             ;;
         --disease)
             DISEASE="$2"
-            shift 2
-            ;;
-        --results-dir)
-            RESULTS_DIR="$2"
             shift 2
             ;;
         --disease-context)
@@ -573,10 +573,11 @@ else
     EXPECTED_SUBDIR="sender_${CLEAN_SENDER}_receiver_${CLEAN_RECEIVER}_${CLEAN_CONDITION2}"
 fi
 
-EXPECTED_OUTPUT_DIR="${RESULTS_DIR}/${EXPECTED_SUBDIR}"
+EXPECTED_OUTPUT_DIR="${RUN_OUTPUT_DIR}/${EXPECTED_SUBDIR}"
 
 print_info "Expected output directory: '$EXPECTED_OUTPUT_DIR'"
 
+print_info "Run output directory: '$RUN_OUTPUT_DIR'"
 print_info "Cell communication type for LLM analysis: '$CELL_TYPE'"
 print_info "Disease context: '$DISEASE_CONTEXT'"
 print_info "LLM parameters - Temperature: $TEMPERATURE, Max tokens: $MAX_TOKENS, Seed: $SEED"
@@ -586,6 +587,11 @@ print_info "LLM parameters - Temperature: $TEMPERATURE, Max tokens: $MAX_TOKENS,
 # ============================================================================
 
 print_header "RUNNING S2C2 ANALYSIS"
+
+# Create output directory for this run
+print_info "Creating output directory: $RUN_OUTPUT_DIR"
+mkdir -p "$RUN_OUTPUT_DIR"
+print_info "✅ Output directory created successfully"
 
 print_info "Starting S2C2_CLI.R with the following parameters:"
 echo "  RDS file: $RDS_FILE"
@@ -603,7 +609,7 @@ echo "  Lambda: $LAMBDA"
 echo "  Species: $SPECIES"
 echo "  Assay: $ASSAY"
 echo "  Disease: $DISEASE"
-echo "  Results directory: $RESULTS_DIR"
+echo "  Results directory: $RUN_OUTPUT_DIR"
 echo ""
 
 # Remove old log file if exists
@@ -627,7 +633,7 @@ Rscript "$S2C2_SCRIPT" \
     --species "$SPECIES" \
     --assay "$ASSAY" \
     --disease "$DISEASE" \
-    --results-dir "$RESULTS_DIR"
+    --results-dir "$RUN_OUTPUT_DIR"
 
 # Check if S2C2 completed successfully
 if [ $? -eq 0 ]; then
@@ -647,11 +653,11 @@ print_header "VERIFYING S2C2 OUTPUT FILES"
 # Check if expected output directory exists
 if [ ! -d "$EXPECTED_OUTPUT_DIR" ]; then
     print_error "Expected output directory not found: $EXPECTED_OUTPUT_DIR"
-    print_info "Available directories in $RESULTS_DIR:"
-    if [ -d "$RESULTS_DIR" ]; then
-        ls -la "$RESULTS_DIR/"
+    print_info "Available directories in $RUN_OUTPUT_DIR:"
+    if [ -d "$RUN_OUTPUT_DIR" ]; then
+        ls -la "$RUN_OUTPUT_DIR/"
     else
-        print_error "Results directory does not exist: $RESULTS_DIR"
+        print_error "Results directory does not exist: $RUN_OUTPUT_DIR"
     fi
     exit 1
 fi
@@ -720,13 +726,13 @@ if [[ "$LLM_PROVIDER" == "ollama" ]]; then
 
     # Run the Python script directly with proper arguments
     print_info "Executing local-ollama-api.py..."
-    FULL_COMMAND="python3 \"$OLLAMA_SCRIPT\" --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --model \"$LLM_MODEL\" --significant-branches-file \"$SIGNIFICANT_BRANCHES_FILE\" --temperature \"$TEMPERATURE\" --max-tokens \"$MAX_TOKENS\" --seed \"$SEED\""
+    FULL_COMMAND="python3 \"$OLLAMA_SCRIPT\" --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --model \"$LLM_MODEL\" --significant-branches-file \"$SIGNIFICANT_BRANCHES_FILE\" --temperature \"$TEMPERATURE\" --max-tokens \"$MAX_TOKENS\" --seed \"$SEED\" --results-dir \"$RUN_OUTPUT_DIR\""
     
     print_info " DEBUG: Full Ollama command:"
     echo "    $FULL_COMMAND"
     echo ""
 
-    python3 "$OLLAMA_SCRIPT" --cell "$CELL_TYPE" --disease "$DISEASE_CONTEXT" --model "$LLM_MODEL" --significant-branches-file "$SIGNIFICANT_BRANCHES_FILE" --temperature "$TEMPERATURE" --seed "$SEED"
+    python3 "$OLLAMA_SCRIPT" --cell "$CELL_TYPE" --disease "$DISEASE_CONTEXT" --model "$LLM_MODEL" --significant-branches-file "$SIGNIFICANT_BRANCHES_FILE" --temperature "$TEMPERATURE" --seed "$SEED" --results-dir "$RUN_OUTPUT_DIR"
 
     LLM_EXIT_CODE=$?
 
@@ -743,13 +749,13 @@ elif [[ "$LLM_PROVIDER" == "gemini" ]]; then
 
     # Run Gemini API script
     print_info "Executing gemini-api-call.py..."
-    FULL_COMMAND="python3 \"$GEMINI_SCRIPT\" --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --model \"$LLM_MODEL\" --significant-branches-file \"$SIGNIFICANT_BRANCHES_FILE\" --api-key \"$API_KEY\" --temperature \"$TEMPERATURE\" --max-tokens \"$MAX_TOKENS\" --seed \"$SEED\" --algorithm \"$ALGORITHM\""
+    FULL_COMMAND="python3 \"$GEMINI_SCRIPT\" --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --model \"$LLM_MODEL\" --significant-branches-file \"$SIGNIFICANT_BRANCHES_FILE\" --api-key \"$API_KEY\" --temperature \"$TEMPERATURE\" --max-tokens \"$MAX_TOKENS\" --seed \"$SEED\" --algorithm \"$ALGORITHM\" --results-dir \"$RUN_OUTPUT_DIR\""
     
     print_info " DEBUG: Full Gemini command:"
     echo "    $FULL_COMMAND"
     echo ""
 
-    python3 "$GEMINI_SCRIPT" --cell "$CELL_TYPE" --disease "$DISEASE_CONTEXT" --model "$LLM_MODEL" --significant-branches-file "$SIGNIFICANT_BRANCHES_FILE" --api-key "$API_KEY" --temperature "$TEMPERATURE" --max-tokens "$MAX_TOKENS" --seed "$SEED" --algorithm "$ALGORITHM"
+    python3 "$GEMINI_SCRIPT" --cell "$CELL_TYPE" --disease "$DISEASE_CONTEXT" --model "$LLM_MODEL" --significant-branches-file "$SIGNIFICANT_BRANCHES_FILE" --api-key "$API_KEY" --temperature "$TEMPERATURE" --max-tokens "$MAX_TOKENS" --seed "$SEED" --algorithm "$ALGORITHM" --results-dir "$RUN_OUTPUT_DIR"
 
     LLM_EXIT_CODE=$?
 
@@ -765,7 +771,7 @@ elif [[ "$LLM_PROVIDER" == "openrouter" ]]; then
     fi
 
     # Build OpenRouter command with optional parameters
-    OPENROUTER_BASE_CMD="python3 \"$OPENROUTER_SCRIPT\" --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --model \"$LLM_MODEL\" --significant-branches-file \"$SIGNIFICANT_BRANCHES_FILE\" --api-key \"$API_KEY\" --temperature \"$TEMPERATURE\" --max-tokens \"$MAX_TOKENS\" --algorithm \"$ALGORITHM\""
+    OPENROUTER_BASE_CMD="python3 \"$OPENROUTER_SCRIPT\" --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --model \"$LLM_MODEL\" --significant-branches-file \"$SIGNIFICANT_BRANCHES_FILE\" --api-key \"$API_KEY\" --temperature \"$TEMPERATURE\" --max-tokens \"$MAX_TOKENS\" --algorithm \"$ALGORITHM\" --results-dir \"$RUN_OUTPUT_DIR\""
     
     # Add optional site attribution parameters if provided
     if [ -n "$SITE_URL" ]; then
@@ -799,7 +805,7 @@ if [ $LLM_EXIT_CODE -eq 0 ]; then
     echo ""
     echo "📊 Analysis Summary:"
     echo "  - S2C2 analysis: ✅ Completed"
-    echo "  - Output directory: $EXPECTED_OUTPUT_DIR"
+    echo "  - Output directory: $RUN_OUTPUT_DIR"
     echo "  - LR pairs analyzed: (Not applicable, S2C2 output is not directly used for LR pairs here)"
     echo "  - Significant pathways: $SIG_SIZE branches"
     echo "  - LLM hypothesis generation: ✅ Completed"
@@ -810,8 +816,10 @@ if [ $LLM_EXIT_CODE -eq 0 ]; then
     
     echo ""
     echo "📁 Key output files:"
+    echo "  - Run output directory: $RUN_OUTPUT_DIR/"
     echo "  - S2C2 results: $EXPECTED_OUTPUT_DIR/"
     echo "  - Significant branches: $SIGNIFICANT_BRANCHES_FILE"
+    echo "  - LLM report: (HTML file in $RUN_OUTPUT_DIR/)"
     echo "  - Analysis log: (No log file generated by S2C2_CLI.R)"
     
     print_info " Pipeline completed successfully!"
@@ -829,17 +837,17 @@ else
     
     if [[ "$LLM_PROVIDER" == "ollama" ]]; then
         echo "You can manually run the Ollama analysis later using:"
-        echo "  python3 $OLLAMA_SCRIPT --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\""
+        echo "  python3 $OLLAMA_SCRIPT --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --results-dir \"$RUN_OUTPUT_DIR\""
         echo "Make sure to update the file paths in the Python script to:"
         echo "  file2_path = \"$SIGNIFICANT_BRANCHES_FILE\""
     elif [[ "$LLM_PROVIDER" == "gemini" ]]; then
         echo "You can manually run the Gemini analysis later using:"
-        echo "  python3 $GEMINI_SCRIPT --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --api-key \"$API_KEY\""
+        echo "  python3 $GEMINI_SCRIPT --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --api-key \"$API_KEY\" --results-dir \"$RUN_OUTPUT_DIR\""
         echo "Make sure to update the file paths in the Python script to:"
         echo "  file2_path = \"$SIGNIFICANT_BRANCHES_FILE\""
     elif [[ "$LLM_PROVIDER" == "openrouter" ]]; then
         echo "You can manually run the OpenRouter analysis later using:"
-        echo "  python3 $OPENROUTER_SCRIPT --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --api-key \"$API_KEY\""
+        echo "  python3 $OPENROUTER_SCRIPT --cell \"$CELL_TYPE\" --disease \"$DISEASE_CONTEXT\" --api-key \"$API_KEY\" --results-dir \"$RUN_OUTPUT_DIR\""
         echo "Make sure to update the file paths in the Python script to:"
         echo "  file2_path = \"$SIGNIFICANT_BRANCHES_FILE\""
     fi

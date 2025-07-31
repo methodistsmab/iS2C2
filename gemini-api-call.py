@@ -97,6 +97,8 @@ parser.add_argument('--algorithm', type=str, default='s2c2', choices=['s2c2', 'l
                    help='Algorithm to use for hypothesis generation: s2c2 (default), lianaplus, or nichenet')
 parser.add_argument('--lr-file', type=str, default=None, help='Path to LR.csv file (for nichenet algorithm)')
 parser.add_argument('--lt-file', type=str, default=None, help='Path to LT.csv file (for nichenet algorithm)')
+parser.add_argument('--results-dir', type=str, default='.',
+                   help='Directory to save output files (default: current directory)')
 args = parser.parse_args()
 
 # Get parameters from arguments
@@ -142,6 +144,10 @@ timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: 20241201_143052
 
 # Always include algorithm in output file name
 output_file = f"llm_report_gemini_{cell_sanitized}_{disease_sanitized}_{model_sanitized}_{args.algorithm}_{timestamp}.html"
+
+# Use results-dir if provided
+if args.results_dir and args.results_dir != '.':
+    output_file = os.path.join(args.results_dir, os.path.basename(output_file))
 
 # Parse cell type to extract sender and receiver
 def parse_cell_type(cell_string):
