@@ -4,8 +4,25 @@ from datetime import datetime
 import argparse
 from openai import OpenAI
 from dotenv import load_dotenv
+import markdown
+from html import escape
 
 load_dotenv()
+
+def chatgpt_response_to_html(text, support_markdown=True):
+    """
+    Convert ChatGPT API response to HTML.
+    Args:
+        text (str): Raw ChatGPT response.
+        support_markdown (bool): Whether to parse markdown or just escape HTML.
+    Returns:
+        str: HTML formatted content.
+    """
+    if support_markdown:
+        html = markdown.markdown(text, extensions=["fenced_code", "tables"])
+    else:
+        html = f"<pre>{escape(text)}</pre>"
+    return html
 
 def read_file_content(filepath):
     """Read file content with detailed error reporting"""
@@ -122,7 +139,7 @@ max_tokens_str = str(max_tokens)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: 20241201_143052
 
 # Always include algorithm in output file name
-output_file = f"llm_report_openrouter_{cell_sanitized}_{disease_sanitized}_{model_sanitized}_{args.algorithm}_{timestamp}.txt"
+output_file = f"llm_report_openrouter_{cell_sanitized}_{disease_sanitized}_{model_sanitized}_{args.algorithm}_{timestamp}.html"
 
 # Parse cell type to extract sender and receiver
 def parse_cell_type(cell_string):
@@ -551,45 +568,233 @@ try:
             os.makedirs(output_dir, exist_ok=True)
             print(f"Created output directory: {output_dir}")
         
-        # Write the response with metadata
+        # Convert the LLM response to HTML
+        html_content = chatgpt_response_to_html(result, support_markdown=True)
+        
+        # Create HTML document with metadata
+        html_document = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRouter LLM Hypothesis Generation Report</title>
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }}
+        h1 {{
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }}
+        h2 {{
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }}
+        h3 {{
+            color: #2c3e50;
+            margin-top: 25px;
+        }}
+        .metadata {{
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }}
+        .metadata h3 {{
+            margin-top: 0;
+            color: #2c3e50;
+        }}
+        .metadata-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }}
+        .metadata-item {{
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }}
+        .metadata-label {{
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }}
+        .metadata-value {{
+            color: #2c3e50;
+            margin-top: 5px;
+        }}
+        .content {{
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }}
+        pre {{
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }}
+        code {{
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }}
+        table {{
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }}
+        th, td {{
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }}
+        th {{
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }}
+        tr:nth-child(even) {{
+            background-color: #f9f9f9;
+        }}
+        .file-info {{
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }}
+        .timestamp {{
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OpenRouter LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">{end_datetime.strftime('%Y-%m-%d %H:%M:%S')}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">{cell}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">{disease}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">{model_name}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">{temperature}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">{max_tokens}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context limit</div>
+                    <div class="metadata-value">{context_limit:,} tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">{args.algorithm}</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">{openrouter_duration:.2f} seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">{response_length:,} characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">{estimated_response_tokens:,}</div>
+                </div>"""
+        
+        # Add actual tokens used if available
+        if usage_info and hasattr(usage_info, 'total_tokens') and usage_info.total_tokens:
+            html_document += f"""
+                <div class="metadata-item">
+                    <div class="metadata-label">Actual tokens used</div>
+                    <div class="metadata-value">{usage_info.total_tokens:,}</div>
+                </div>"""
+        
+        html_document += f"""
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>"""
+        
+        if args.algorithm == "s2c2":
+            html_document += f"""
+            <p><strong>Significant branches file:</strong> {file2_path} ({file2_size:,} chars)</p>
+            <p><strong>Example files:</strong> {example1_path} ({example1_size:,} chars)</p>
+            <p><strong>               </strong> {example2_path} ({example2_size:,} chars)</p>
+            <p><strong>               </strong> {example3_path} ({example3_size:,} chars)</p>"""
+        elif args.algorithm == "lianaplus":
+            html_document += f"""
+            <p><strong>Significant branches file:</strong> {file2_path} ({file2_size:,} chars)</p>"""
+        elif args.algorithm == "nichenet":
+            html_document += f"""
+            <p><strong>LR file:</strong> {lr_file} ({lr_size:,} chars)</p>
+            <p><strong>LT file:</strong> {lt_file} ({lt_size:,} chars)</p>"""
+        
+        html_document += f"""
+            <p><strong>Total content processed:</strong> {total_chars:,} characters</p>
+        </div>
+
+        <div class="content">
+            <h2>OpenRouter LLM Response</h2>
+            {html_content}
+        </div>
+
+        <div class="timestamp">
+            Report generated on {end_datetime.strftime('%Y-%m-%d at %H:%M:%S')}
+        </div>
+    </div>
+</body>
+</html>"""
+        
+        # Write the HTML document
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write("=" * 80 + "\n")
-            f.write("OPENROUTER LLM HYPOTHESIS GENERATION REPORT\n")
-            f.write("=" * 80 + "\n\n")
-            f.write(f"Generated at: {end_datetime.strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"Cell communication type: {cell}\n")
-            f.write(f"Disease context: {disease}\n")
-            f.write(f"Model: {model_name}\n")
-            f.write(f"Temperature: {temperature}\n")
-            f.write(f"Max tokens: {max_tokens}\n")
-            f.write(f"Context limit: {context_limit:,} tokens\n")
-            f.write(f"Algorithm: {args.algorithm}\n")
-            f.write(f"Processing time: {openrouter_duration:.2f} seconds\n")
-            f.write(f"Response length: {response_length:,} characters\n")
-            f.write(f"Estimated tokens: {estimated_response_tokens:,}\n")
-            if usage_info and hasattr(usage_info, 'total_tokens') and usage_info.total_tokens:
-                f.write(f"Actual tokens used: {usage_info.total_tokens:,}\n")
-            f.write("\n" + "=" * 80 + "\n")
-            f.write("INPUT FILES PROCESSED:\n")
-            f.write("=" * 80 + "\n")
-            if args.algorithm == "s2c2":
-                f.write(f"Significant branches file: {file2_path} ({file2_size:,} chars)\n")
-                f.write(f"Example files: {example1_path} ({example1_size:,} chars)\n")
-                f.write(f"               {example2_path} ({example2_size:,} chars)\n")
-                f.write(f"               {example3_path} ({example3_size:,} chars)\n")
-            elif args.algorithm == "lianaplus":
-                f.write(f"Significant branches file: {file2_path} ({file2_size:,} chars)\n")
-            elif args.algorithm == "nichenet":
-                f.write(f"LR file: {lr_file} ({lr_size:,} chars)\n")
-                f.write(f"LT file: {lt_file} ({lt_size:,} chars)\n")
-            f.write(f"Total content processed: {total_chars:,} characters\n")
-            f.write("\n" + "=" * 80 + "\n")
-            f.write("OPENROUTER LLM RESPONSE:\n")
-            f.write("=" * 80 + "\n\n")
-            f.write(result)
-            f.write("\n\n" + "=" * 80 + "\n")
-            f.write("END OF REPORT\n")
-            f.write("=" * 80 + "\n")
+            f.write(html_document)
         
         print(f"✅ Successfully saved LLM response to: {output_file}")
         print(f"   File size: {os.path.getsize(output_file):,} bytes")
@@ -605,11 +810,111 @@ except Exception as e:
     print(f"❌ Error communicating with OpenRouter: {e}")
     # Save error message to file
     try:
+        error_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRouter LLM Error Report</title>
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }}
+        .container {{
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }}
+        h1 {{
+            text-align: center;
+            color: #e74c3c;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }}
+        .error-info {{
+            background-color: #fdf2f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #e74c3c;
+        }}
+        .error-item {{
+            margin-bottom: 15px;
+        }}
+        .error-label {{
+            font-weight: bold;
+            color: #c0392b;
+        }}
+        .error-value {{
+            color: #2c3e50;
+            margin-top: 5px;
+            font-family: 'Courier New', monospace;
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 3px;
+        }}
+        .timestamp {{
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>❌ LLM Request Failed - OpenRouter Error</h1>
+        
+        <div class="error-info">
+            <div class="error-item">
+                <div class="error-label">Timestamp</div>
+                <div class="error-value">{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</div>
+            </div>
+            <div class="error-item">
+                <div class="error-label">Error Type</div>
+                <div class="error-value">{type(e).__name__}</div>
+            </div>
+            <div class="error-item">
+                <div class="error-label">Error Message</div>
+                <div class="error-value">{str(e)}</div>
+            </div>
+            <div class="error-item">
+                <div class="error-label">Model</div>
+                <div class="error-value">{model_name}</div>
+            </div>
+            <div class="error-item">
+                <div class="error-label">Algorithm</div>
+                <div class="error-value">{args.algorithm}</div>
+            </div>
+            <div class="error-item">
+                <div class="error-label">Context Limit</div>
+                <div class="error-value">{context_limit:,} tokens</div>
+            </div>
+            <div class="error-item">
+                <div class="error-label">Max Tokens</div>
+                <div class="error-value">{max_tokens}</div>
+            </div>
+        </div>
+
+        <div class="timestamp">
+            Error report generated on {datetime.now().strftime('%Y-%m-%d at %H:%M:%S')}
+        </div>
+    </div>
+</body>
+</html>"""
+        
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write("LLM REQUEST FAILED - OPENROUTER ERROR\n")
-            f.write("=" * 50 + "\n")
-            f.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"Error: {e}\n")
+            f.write(error_html)
     except:
         pass
 
