@@ -1,14 +1,14 @@
 # Ligand–Receptor Hypothesis Generation Prompt  
-**Astrocyte-Excitatory neuron (Alzheimer’s Disease Context)**
+**{celltype1-celltype2} ({disease} Context)**
 
 You are provided with a cell–cell crosstalk data file:  `LLM_significant_branches.csv`  
-This file contains predicted **ligand–receptor (LR)** interactions and their downstream **Branch_path** signaling cascades between **astrocytes (sender)** and **excitatory neurons (receiver)** in **Alzheimer’s disease**.
+This file contains predicted **ligand–receptor (LR)** interactions and their downstream **Branch_path** signaling cascades between **celltype1(sender)** and **celltype2 (receiver)** in **disease**.
 
 Your task is to generate **three distinct, biologically meaningful hypotheses**. Each hypothesis must be based on:
 
 - A unique **ligand–receptor pair** (from the data)
 - A valid **Branch_path** (from the data)
-- A fully developed downstream mechanistic explanation, grounded in **Alzheimer’s disease biology**
+- A fully developed downstream mechanistic explanation, grounded in **{disease} biology**
 
 
 ---
@@ -53,7 +53,7 @@ For each of the **three selected LR pairs**, generate one hypothesis using **onl
    - **Never invent or substitute** a biologically plausible pair that is not in the file.
 
 2. **Biological Relevance**  
-   - The pair should be plausibly linked to **Alzheimer’s disease** mechanisms (e.g., inflammation, oxidative stress, synaptic loss, glial activation).  
+   - The pair should be plausibly linked to **disease** mechanisms (e.g., inflammation, oxidative stress, synaptic loss, glial activation).  
 
 3. **Unique Branch Path**  
    - The LR pair must map to a **distinct** `Branch_path` not used for another hypothesis.
@@ -75,11 +75,11 @@ For each of the **three selected LR pairs**, generate one hypothesis using **onl
 
 For the selected ligand–receptor pair, write a **comprehensive mechanistic hypothesis** covering the following:
 
-1. The **Alzheimer’s disease**-related cellular stressors that induce the ligand in the sender cell type.
+1. The **disease**-related cellular stressors that induce the ligand in the sender cell type.
 2. The biological function of the receptor in the receiver cell type.
 3. A **gene-by-gene breakdown** of the full Branch_path.
 4. The final gene’s effect on the receiver cell type function.
-5. The broader implication of this signaling cascade on **Alzheimer’s disease** pathology.
+5. The broader implication of this signaling cascade on **disease** pathology.
 6. Follow similar logic structure shown in the **reference analogical examples**. 
 
 Be mechanistic, multi-step, and emphasize **directional causality** from ligand to phenotype. Do not summarize; fully elaborate all six elements for each hypothesis.
@@ -93,7 +93,7 @@ Repeat **Steps 2–3** until you have generated:
 - Each with a **unique, distinct ligand–receptor pair**
 - Each with a **distinct Branch_path**
 - All derived strictly from the data
-- All biologically grounded in **Alzheimer’s disease** mechanisms
+- All biologically grounded in **disease** mechanisms
 
 Ensure the output is continuous and structured step-by-step, **without skipping validation or reusing branches**.
 
