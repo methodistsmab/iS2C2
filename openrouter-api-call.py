@@ -96,6 +96,8 @@ parser.add_argument('--site-url', type=str, default=None,
                    help='Site URL for OpenRouter rankings (optional)')
 parser.add_argument('--site-name', type=str, default=None,
                    help='Site name for OpenRouter rankings (optional)')
+parser.add_argument('--results-dir', type=str, default='.',
+                   help='Directory to save output files (default: current directory)')
 args = parser.parse_args()
 
 # Get parameters from arguments
@@ -140,6 +142,17 @@ timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: 20241201_143052
 
 # Always include algorithm in output file name
 output_file = f"llm_report_openrouter_{cell_sanitized}_{disease_sanitized}_{model_sanitized}_{args.algorithm}_{timestamp}.html"
+
+# Use results-dir if provided, otherwise create timestamp directory
+if args.results_dir and args.results_dir != '.':
+    output_file = os.path.join(args.results_dir, os.path.basename(output_file))
+else:
+    # Create timestamp directory in results folder
+    timestamp_dir = f"results/run_{timestamp}"
+    os.makedirs(timestamp_dir, exist_ok=True)
+    output_file = os.path.join(timestamp_dir, os.path.basename(output_file))
+    print(f"Created timestamp directory: {timestamp_dir}")
+    print(f"Output file will be saved to: {output_file}")
 
 # Parse cell type to extract sender and receiver
 def parse_cell_type(cell_string):
