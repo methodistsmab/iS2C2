@@ -115,4 +115,3 @@ Ensure the output is continuous and structured step-by-step, **without skipping 
 > The final output must be a **continuous block** of:
 > - Step-by-step generation of all 3 hypotheses
 > - No breaks, no tool invocations, no outputs aside from hypothesis content
-
