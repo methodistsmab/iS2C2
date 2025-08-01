@@ -1,39 +1,53 @@
 ## iS2C2 With Gemini LLM tutorial
+>To learn more about S2C2, please visit the [S2C2](https://github.com/methodistsmab/S2C2)
 
+## Prerequisites
+- Python 3.9
+- Conda package manager
+- Internet connection for downloading packages and models
+
+## Installation Dependencies 
+### Step 1: Set Up Python Environment
+Create and activate a conda environment:
+
+```bash
+conda create -n is2c2 python=3.9
+conda activate is2c2
+```
+
+### Step 2: Install Python Dependencies
+Install the required Python packages:
+
+```bash
+pip install -q -r requirements.txt
+```
+
+
+## Prepare the Gemini API Key
 This demonstration uses the Gemini API, which supports the following models: gemini-2.0-flash, gemini-2.5-flash, and gemini-2.5-pro. For more information, please refer to: [Gemini API docs](https://ai.google.dev/gemini-api/docs?authuser=1)
 
-
-
-### Prepare the API Key
 Please navigate to the [Gemini Key website](https://aistudio.google.com/apikey) and create your own Gemini API key.
 
-> Please put your API key in the `.env` file for security purposes.
+
+Refer to this [PDF tutorial](../how-to-get-Gemini-Key.pdf) for step-by-step instructions on obtaining your Gemini API key.
+
+## Data
+The iS2C2 example data are available in [Google Drive](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link).
+
+**Download the example data** and place it in your working directory before proceeding with the analysis.
 
 
-Put your API key in a .env file as GEMINI_API_KEY="your-gemini-api-key", then run:
+
+## Usage
+Make the pipeline executable:
+
 ```bash
-source .env
+chmod +x iS2C2.sh
 ```
-```bash
-export TEMP_GEMINI_API_KEY="$GEMINI_API_KEY"
-```
-
-check your API Key 
-```bash
-curl -s "https://generativelanguage.googleapis.com/v1beta/models?key=$GEMINI_API_KEY" | head -n 10
-```
-A successful response should return something like:`{
-  "models": [
-    {
-      ........
-    }`
-
-### Running LLM Hypothesis Generation with S2C2
-Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link)
-
+Running LLM Hypothesis Generation with S2C2
 ```bash
 ./iS2C2.sh \
-  --rds-file "./pbmc_control_example_clean_7_21_25" \
+  --rds-file "./pbmc_control_example_clean_7_21_25.rds" \
   --celltype-colname "seurat_annotations" \
   --condition-colname "condition" \
   --condition1 "control" \
@@ -42,13 +56,14 @@ Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-
   --receiver "CD14+ Mono" \
   --species "human" \
   --assay "RNA" \
-  --cell-type "astrocyte-excitatory neuron" \
-  --disease-context "Alzheimer's disease" \
+  --cell-type "Memory CD4 T-CD14+ Mon" \
+  --disease-context "Peripheral Blood Mononuclear Cells" \
   --algorithm "s2c2" \
   --llm-provider "gemini" \
   --model "gemini-2.5-pro" \
-  --api-key "$TEMP_API_KEY"
+  --api-key "xxxxxxx(your-gemini-api-key)"
 ```
+Explain about the parameters as follows: 
 
 ```bash
 ./iS2C2.sh \
@@ -66,5 +81,15 @@ Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-
   --algorithm "s2c2" \
   --llm-provider "gemini" \
   --model "gemini-2.5-pro" \
-  --api-key "$TEMP_GEMINI_API_KEY"
+  --api-key "(you-gemini-api-key)"
 ```
+* For more detailed information about the parameters, please refer to [parameter-table](../../parameters.md)
+* Result will be saved in the default work-directory: /results
+
+> **Note**: Results will be saved in the default working directory: `/results`.
+
+
+## Expected Output
+For more details, see the [example report](../../output/geimini25_pro_s2c2/llm_report_gemini_Memory_CD4_T_CD14+_Mono_Peripheral_Blood_Mononuclear_Cells_gemini_25_pro_s2c2_20250731_163730.html).
+
+![example-output](../../screenshots/output/iS2C2/gemini/gemini-s2c2.png)

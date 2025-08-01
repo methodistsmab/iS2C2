@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gemini LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 16:39:01</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">gemini-2.5-pro</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.4</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">100000</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context limit</div>
+                    <div class="metadata-value">2,000,000 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Thinking budget</div>
+                    <div class="metadata-value">None</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">s2c2</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">90.78 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">12,078 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">3,019</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Actual tokens used</div>
+                    <div class="metadata-value">16,251</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>Significant branches file:</strong> results/run_20250731_163654/sender_Memory_CD4_T_receiver_CD14_Mono_NA/LLM_significant_branches.csv (5,067 chars)</p>
+            <p><strong>Example files:</strong> ./prompt/example1.txt (5,874 chars)</p>
+            <p><strong>               </strong> ./prompt/example2.txt (4,886 chars)</p>
+            <p><strong>               </strong> ./prompt/example3.txt (5,907 chars)</p>
+            <p><strong>Total content processed:</strong> 21,734 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>Gemini LLM Response</h2>
+            <h3><strong>Hypothesis 1: IFNG–IFNGR2 Signaling Drives Monocyte Oxidative Burst</strong></h3>
+<h4>Step 2: Selection of Valid LR Pair</h4>
+<ul>
+<li><strong>Ligand–Receptor Pair:</strong> IFNG–IFNGR2</li>
+<li><strong>Full <code>Branch_path</code>:</strong> <code>IFNG___IFNGR2___STAT1___TRAF2___RAC1___NCF2</code></li>
+<li><strong>PAS:</strong> 1.751</li>
+<li><strong>p_val:</strong> 0.004</li>
+<li><strong>Rationale for Selection:</strong> This interaction was selected due to its excellent composite rank, driven by a highly significant p-value and a very high Pathway Activity Score (PAS). This suggests that the communication from Memory CD4 T cells to CD14+ Monocytes via the IFNG-IFNGR2 axis is a dominant and statistically robust signaling event in this dataset. It points towards a classic Th1-mediated activation of monocytes, a fundamental process in cellular immunity and inflammation.</li>
+</ul>
+<h4>Step 3: Generate a Mechanistic Hypothesis</h4>
+<ol>
+<li>
+<p><strong>Induction of Ligand (IFNG) in Sender Cell:</strong> In the peripheral blood, Memory CD4 T cells, particularly those of a Th1 phenotype, are key producers of Interferon-gamma (IFNG). Their activation is triggered by re-exposure to specific antigens or by a pro-inflammatory cytokine milieu, which is characteristic of the systemic inflammation often associated with aging and neurodegenerative diseases. These chronic inflammatory stressors lead to sustained secretion of IFNG by Memory CD4 T cells, establishing a key signal for activating other immune cells.</p>
+</li>
+<li>
+<p><strong>Biological Function of Receptor (IFNGR2) in Receiver Cell:</strong> The receptor, IFNGR2, is a critical non-ligand-binding subunit of the interferon-gamma receptor complex expressed on CD14+ Monocytes. While IFNGR1 binds IFNG, IFNGR2 is essential for signal transduction. Upon ligand binding to the complex, IFNGR2 initiates the downstream signaling cascade that drives monocyte activation and differentiation towards a pro-inflammatory M1-like macrophage phenotype, which is characterized by enhanced phagocytic capacity and potent antimicrobial responses, including the production of reactive oxygen species (ROS).</p>
+</li>
+<li>
+<p><strong>Gene-by-Gene Breakdown of the Branch Path:</strong></p>
+<ul>
+<li><code>IFNG</code>, secreted by the Memory CD4 T cell, binds to the IFNGR1/<code>IFNGR2</code> receptor complex on the CD14+ Monocyte.</li>
+<li>This engagement activates receptor-associated JAK kinases, which phosphorylate <code>STAT1</code> (Signal Transducer and Activator of Transcription 1), a canonical transcription factor in IFN signaling.</li>
+<li>In parallel, the activated receptor complex recruits <code>TRAF2</code> (TNF Receptor Associated Factor 2), an adaptor protein that links the receptor to alternative, non-canonical signaling pathways.</li>
+<li>TRAF2, in this context, activates the small GTPase <code>RAC1</code> (Ras-related C3 botulinum toxin substrate 1).</li>
+<li>Activated RAC1 is a critical organizer of the NADPH oxidase enzyme complex, promoting its assembly at the phagosomal or plasma membrane and recruiting key cytosolic components, including <code>NCF2</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Final Gene's Effect on Receiver Cell Function (NCF2):</strong> <code>NCF2</code> (Neutrophil Cytosolic Factor 2, or p67phox) is an essential activating subunit of the NADPH oxidase complex. Its recruitment and integration into the complex by RAC1 are the final steps required for enzyme activation. This triggers a "respiratory burst," a metabolic process that generates large quantities of superoxide and other ROS. In the CD14+ Monocyte, this ROS production is a primary mechanism for killing pathogens but also a major source of oxidative stress.</p>
+</li>
+<li>
+<p><strong>Broader Implication for PBMC Pathology:</strong> This signaling cascade from Memory CD4 T cells to monocytes represents a potent mechanism for driving a pro-inflammatory, high-oxidative-stress state within the circulating PBMC population. Chronic activation of this pathway can lead to systemic inflammation and endothelial damage. In the context of neurodegenerative diseases, these highly activated, ROS-producing monocytes are implicated in compromising the blood-brain barrier. Their subsequent infiltration into the central nervous system (CNS) and differentiation into inflammatory macrophages/microglia can directly contribute to neuronal damage and cell death through oxidative stress, thereby linking peripheral immune activation to the progression of neurodegeneration.</p>
+</li>
+</ol>
+<hr />
+<h3><strong>Hypothesis 2: TNF–TNFRSF1A Signaling Promotes a Pro-inflammatory Transcriptional State in Monocytes via p38 MAPK</strong></h3>
+<h4>Step 2: Selection of Valid LR Pair</h4>
+<ul>
+<li><strong>Ligand–Receptor Pair:</strong> TNF–TNFRSF1A</li>
+<li><strong>Full <code>Branch_path</code>:</strong> <code>TNF___TNFRSF1A___TRAF2___MAP3K5___MAP2K3___MAPK14___MAX</code></li>
+<li><strong>PAS:</strong> 2.170</li>
+<li><strong>p_val:</strong> 0.005</li>
+<li><strong>Rationale for Selection:</strong> This interaction was chosen for its outstanding composite rank, featuring the single highest Pathway Activity Score (PAS) in the entire dataset. This indicates that this specific signaling branch is exceptionally active. The combination of high activity and statistical significance (p=0.005) makes it a prime candidate for a biologically crucial pathway regulating monocyte function in this context.</li>
+</ul>
+<h4>Step 3: Generate a Mechanistic Hypothesis</h4>
+<ol>
+<li>
+<p><strong>Induction of Ligand (TNF) in Sender Cell:</strong> Memory CD4 T cells are a significant source of Tumor Necrosis Factor (TNF), a master pro-inflammatory cytokine. In response to cellular stressors like chronic low-grade infections, tissue debris, or an auto-inflammatory environment—all features implicated in the systemic milieu of neurodegenerative disorders—these T cells upregulate and secrete TNF, propagating an inflammatory state within the PBMC compartment.</p>
+</li>
+<li>
+<p><strong>Biological Function of Receptor (TNFRSF1A) in Receiver Cell:</strong> TNFRSF1A (TNF Receptor 1) is the primary signaling receptor for TNF and is highly expressed on CD14+ Monocytes. Its activation is a pivotal event in the innate immune response, capable of inducing a wide range of cellular outcomes, including the expression of inflammatory genes, chemokines, and survival factors. In monocytes, TNFRSF1A signaling is a canonical pathway for their activation and recruitment to sites of inflammation.</p>
+</li>
+<li>
+<p><strong>Gene-by-Gene Breakdown of the Branch Path:</strong></p>
+<ul>
+<li><code>TNF</code> released from the Memory CD4 T cell binds to and trimerizes <code>TNFRSF1A</code> on the monocyte surface.</li>
+<li>This recruits the adaptor protein <code>TRAF2</code> to the receptor's intracellular death domain.</li>
+<li>TRAF2 serves as a platform to recruit and activate <code>MAP3K5</code> (Mitogen-Activated Protein Kinase Kinase Kinase 5, also known as ASK1), a key kinase that responds to inflammatory and oxidative stress signals.</li>
+<li>Activated MAP3K5/ASK1 phosphorylates and activates its downstream target, <code>MAP2K3</code> (Mitogen-Activated Protein Kinase Kinase 3).</li>
+<li>MAP2K3 specifically phosphorylates and activates <code>MAPK14</code> (Mitogen-Activated Protein Kinase 14, or p38α), a central hub in the cellular stress response pathway.</li>
+<li>Activated p38α (MAPK14) translocates to the nucleus and phosphorylates a variety of transcription factors, including, in this specific branch, <code>MAX</code> (MYC Associated Factor X).</li>
+</ul>
+</li>
+<li>
+<p><strong>Final Gene's Effect on Receiver Cell Function (MAX):</strong> MAX is a transcription factor that forms heterodimers, most famously with MYC, to control genes related to cell cycle, metabolism, and apoptosis. Phosphorylation of MAX by the p38 MAPK stress kinase can alter its stability, localization, and dimerization partners. In this inflammatory context, p38-mediated modification of MAX likely shifts the monocyte's transcriptional program away from proliferation and towards a sustained, pro-inflammatory phenotype, potentially by altering the expression of metabolic enzymes or survival genes that allow the cell to function in a harsh, inflamed environment.</p>
+</li>
+<li>
+<p><strong>Broader Implication for PBMC Pathology:</strong> This pathway demonstrates how T-cell-derived TNF programs monocytes for a sustained inflammatory role via the p38 stress-activated pathway, culminating in the modulation of the MAX-controlled transcriptional network. This creates a feed-forward loop of inflammation in the periphery. For neurodegenerative diseases, such chronically programmed monocytes are more pathogenic. They exhibit enhanced capacity to migrate across the blood-brain barrier and, once in the CNS, contribute to a state of non-resolving neuroinflammation that drives synaptic loss and neuronal death. The extremely high PAS score suggests this is a primary mechanism of monocyte programming in the studied condition.</p>
+</li>
+</ol>
+<hr />
+<h3><strong>Hypothesis 3: IFNG Signaling via IFNGR1 Activates the Monocyte Respiratory Burst</strong></h3>
+<h4>Step 2: Selection of Valid LR Pair</h4>
+<ul>
+<li><strong>Ligand–Receptor Pair:</strong> IFNG–IFNGR1</li>
+<li><strong>Full <code>Branch_path</code>:</strong> <code>IFNG___IFNGR1___STAT1___TRAF2___RAC1___NCF2</code></li>
+<li><strong>PAS:</strong> 1.457</li>
+<li><strong>p_val:</strong> 0.009</li>
+<li><strong>Rationale for Selection:</strong> This pair was selected as the third-best-ranking unique ligand-receptor interaction. While its downstream path resembles that of the IFNG-IFNGR2 hypothesis, its initiation through the distinct IFNGR1 receptor subunit makes it biologically unique. The strong PAS and p-value confirm that signaling through the IFNGR1 subunit is also a significant and highly active event, highlighting the robustness of IFNG-driven monocyte activation.</li>
+</ul>
+<h4>Step 3: Generate a Mechanistic Hypothesis</h4>
+<ol>
+<li>
+<p><strong>Induction of Ligand (IFNG) in Sender Cell:</strong> As previously described, Memory CD4 T cells secrete IFNG in response to chronic antigenic or inflammatory stimuli. This cytokine is a hallmark of Type 1 immunity and plays a central role in orchestrating the cellular immune response, making it a key messenger molecule within the PBMC population, especially in states of systemic inflammation relevant to neurodegenerative disease.</p>
+</li>
+<li>
+<p><strong>Biological Function of Receptor (IFNGR1) in Receiver Cell:</strong> IFNGR1 is the primary ligand-binding subunit of the heterodimeric interferon-gamma receptor on CD14+ Monocytes. The binding of IFNG to IFNGR1 is the requisite first step for receptor activation, inducing a conformational change that recruits the IFNGR2 subunit and initiates intracellular signaling. Therefore, IFNGR1 expression levels on monocytes dictate their sensitivity to T-cell-derived IFNG.</p>
+</li>
+<li>
+<p><strong>Gene-by-Gene Breakdown of the Branch Path:</strong></p>
+<ul>
+<li><code>IFNG</code>, secreted by the Memory CD4 T cell, binds with high affinity to the extracellular domain of <code>IFNGR1</code> on the CD14+ Monocyte.</li>
+<li>This binding event triggers receptor dimerization and the subsequent phosphorylation and activation of <code>STAT1</code> via JAK kinases, initiating the canonical IFNG signaling pathway.</li>
+<li>Concurrently, the activated receptor complex recruits the adaptor protein <code>TRAF2</code>, initiating a parallel, non-canonical signaling arm.</li>
+<li>TRAF2 signaling leads to the activation of the small GTPase <code>RAC1</code>.</li>
+<li>Activated RAC1 orchestrates the assembly of the NADPH oxidase complex by recruiting cytosolic subunits, including <code>NCF2</code> (p67phox), to the membrane.</li>
+</ul>
+</li>
+<li>
+<p><strong>Final Gene's Effect on Receiver Cell Function (NCF2):</strong> The functional incorporation of <code>NCF2</code> into the NADPH oxidase complex is the rate-limiting step for its activation. Once assembled, the enzyme catalyzes the production of superoxide from oxygen, leading to a potent respiratory burst. This flood of ROS endows the monocyte with powerful microbicidal activity but also makes it a significant source of oxidative stress to surrounding tissues.</p>
+</li>
+<li>
+<p><strong>Broader Implication for PBMC Pathology:</strong> This pathway, initiated by the binding of IFNG to IFNGR1, confirms that T-cell-to-monocyte communication robustly drives ROS production. The fact that distinct, significant branches are identified involving both IFNGR1 and IFNGR2 underscores the central importance of this IFNG-ROS axis. In the context of neurodegeneration, this chronic, T-cell-driven production of oxidative stress by peripheral monocytes can have systemic consequences, including lipid peroxidation and damage to the vascular endothelium of the blood-brain barrier. This "outside-in" pathology can increase CNS permeability, allowing inflammatory mediators and activated immune cells to enter the brain, thereby fueling the cycle of neuroinflammation and contributing directly to disease progression.</p>
+</li>
+</ol>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 16:39:01
+        </div>
+    </div>
+</body>
+</html>

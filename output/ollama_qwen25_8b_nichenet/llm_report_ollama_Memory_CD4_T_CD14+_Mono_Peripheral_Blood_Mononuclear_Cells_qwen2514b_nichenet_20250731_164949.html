@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ollama LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 16:57:09</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">qwen2.5:14b</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.4</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">1500</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context size</div>
+                    <div class="metadata-value">131,072 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Seed</div>
+                    <div class="metadata-value">512</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">nichenet</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">439.29 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">3,485 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">871</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>LR file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/example-data/NicheNet/From_Memory CD4 T_To_CD14+ Mono_LR.csv (1,530 chars)</p>
+            <p><strong>LT file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/example-data/NicheNet/From_Memory CD4 T_To_CD14+ Mono_LT.csv (28,845 chars)</p>
+            <p><strong>Total content processed:</strong> 30,375 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>Ollama LLM Response</h2>
+            <p>Based on the provided data from cell-cell crosstalk between Memory CD4 T-CD14+ Mono, three biologically meaningful hypotheses can be formulated to investigate potential therapeutic targets and mechanisms in neurodegenerative diseases. These hypotheses are based on the top ligand-receptor pairs with associated downstream pathway branches identified:</p>
+<h3>Hypothesis 1: IL13-IL13R Signaling Pathway</h3>
+<p><strong>Ligand-Receptor Pair:</strong> IL13 - IL13 receptor (IL13R)
+<strong>Downstream Pathway Branch:</strong> JAK/STAT signaling pathway</p>
+<p><strong>Hypothesis Statement:</strong> The interaction between Memory CD4 T cells and CD14+ monocytes via the IL13-IL13R axis may contribute to neuroinflammation in neurodegenerative diseases through activation of the JAK/STAT signaling pathway. This could lead to increased expression of pro-inflammatory cytokines and chemokines, exacerbating neuronal damage.</p>
+<p><strong>Justification:</strong>
+- The data shows a strong weight for IL13 interactions with multiple targets including CDKN1A, CXCR4, DUSP6, FOS, HBEGF, IER3, JUNB, KLF2, MT2A, PIM1, SAT1, SOD2, and TLR2.
+- These downstream effects suggest that IL13 could be a key mediator in the inflammatory response involving CD40LG (CD40 ligand) and ICAM1, which are also highly weighted in the data.
+- JAK/STAT signaling is known to play a significant role in immune responses and inflammation. The activation of this pathway by IL13 could lead to increased production of cytokines such as TNFα and IFNγ, both of which have been implicated in neurodegenerative diseases.</p>
+<h3>Hypothesis 2: CD40-CD40L Signaling Pathway</h3>
+<p><strong>Ligand-Receptor Pair:</strong> CD40 - CD40 ligand (CD40LG)
+<strong>Downstream Pathway Branch:</strong> NF-κB signaling pathway</p>
+<p><strong>Hypothesis Statement:</strong> The interaction between Memory CD4 T cells and CD14+ monocytes via the CD40-CD40L axis may exacerbate neurodegeneration by activating the NF-κB signaling pathway, leading to sustained inflammation and neuronal damage.</p>
+<p><strong>Justification:</strong>
+- The data indicates a strong weight for interactions involving CD40 and CD40LG with targets such as ATF3, BAX, BCL2, BTG1, CCL5, CDKN1A, DDIT4, DUSP6, FOS, GATA3, HMOX1, ID1, ID2, IER3, IL1B, IRF7, JUN, JUNB, MYC, NFKBIA, PIM1, TRIB1, and TXNIP.
+- NF-κB is a critical transcription factor in immune responses that regulates the expression of pro-inflammatory cytokines. Activation of this pathway through CD40 signaling could perpetuate inflammation and neurodegeneration.</p>
+<h3>Hypothesis 3: ICAM1-ITGB2 Signaling Pathway</h3>
+<p><strong>Ligand-Receptor Pair:</strong> ICAM1 - Integrin β2 (ITGB2)
+<strong>Downstream Pathway Branch:</strong> Rho/ROCK signaling pathway</p>
+<p><strong>Hypothesis Statement:</strong> The interaction between Memory CD4 T cells and CD14+ monocytes via the ICAM1-ITGB2 axis may contribute to neurodegeneration through activation of the Rho/ROCK signaling pathway, leading to cytoskeletal reorganization and increased cell adhesion.</p>
+<p><strong>Justification:</strong>
+- The data shows a strong weight for interactions involving ICAM1 with targets such as EZR, IL2RG, ITGAL, MSN, SPN.
+- Integrin β2 (ITGB2) is known to interact with ICAM1 in immune cells and plays a role in cell adhesion and migration. Activation of the Rho/ROCK pathway downstream could lead to increased cytoskeletal changes that contribute to neurodegeneration by altering cellular dynamics and promoting inflammation.</p>
+<p>These hypotheses provide a framework for investigating potential therapeutic targets and mechanisms in neurodegenerative diseases, focusing on key signaling pathways involved in immune cell interactions.</p>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 16:57:09
+        </div>
+    </div>
+</body>
+</html>

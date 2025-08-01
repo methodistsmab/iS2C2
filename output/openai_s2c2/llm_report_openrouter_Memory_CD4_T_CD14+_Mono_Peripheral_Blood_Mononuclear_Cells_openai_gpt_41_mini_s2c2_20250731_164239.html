@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRouter LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OpenRouter LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 16:43:20</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">openai/gpt-4.1-mini</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.4</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">100000</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context limit</div>
+                    <div class="metadata-value">128,000 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">s2c2</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">40.19 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">8,658 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">2,164</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Actual tokens used</div>
+                    <div class="metadata-value">9,359</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>Significant branches file:</strong> results/run_20250731_164202/sender_Memory_CD4_T_receiver_CD14_Mono_NA/LLM_significant_branches.csv (5,067 chars)</p>
+            <p><strong>Example files:</strong> ./prompt/example1.txt (5,874 chars)</p>
+            <p><strong>               </strong> ./prompt/example2.txt (4,886 chars)</p>
+            <p><strong>               </strong> ./prompt/example3.txt (5,907 chars)</p>
+            <p><strong>Total content processed:</strong> 21,734 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>OpenRouter LLM Response</h2>
+            <p>Step 1: Filter Valid Ligand–Receptor Pairs</p>
+<p>From the provided LLM_significant_branches.csv data, I extracted ligand–receptor pairs with non-null PAS and valid Branch_path entries. I computed composite scores by ranking PAS descending and p_val ascending, then summing ranks to prioritize pairs.</p>
+<p>Top 3 unique ligand–receptor pairs selected (with their best Branch_path, PAS, and p_val):</p>
+<ol>
+<li>
+<p>Ligand: TNF<br />
+   Receptor: TNFRSF1A<br />
+   Branch_path: TNF<strong><em>TNFRSF1A</em></strong>TRAF2<strong><em>MAP3K5</em></strong>MAP2K3<strong><em>MAPK14</em></strong>MAX<br />
+   PAS: 2.1701472321116<br />
+   p_val: 0.005<br />
+   Rationale: Highest PAS score among TNF–TNFRSF1A branches, implicates MAPK14 (p38 MAPK) and transcription factor MAX, relevant to inflammatory signaling in monocytes.</p>
+</li>
+<li>
+<p>Ligand: IFNG<br />
+   Receptor: IFNGR2<br />
+   Branch_path: IFNG<strong><em>IFNGR2</em></strong>STAT1<strong><em>TRAF2</em></strong>RAC1___NCF2<br />
+   PAS: 1.75125200743528<br />
+   p_val: 0.004<br />
+   Rationale: Strong PAS and low p_val; IFNG signaling via STAT1 is critical in monocyte activation and immune response modulation.</p>
+</li>
+<li>
+<p>Ligand: TNFSF14<br />
+   Receptor: LTBR<br />
+   Branch_path: TNFSF14<strong><em>LTBR</em></strong>TRAF2<strong><em>MAP3K7</em></strong>IKBKB<strong><em>NFKBIA</em></strong>NFKB1___CCL4<br />
+   PAS: 1.44358198475484<br />
+   p_val: 0.03<br />
+   Rationale: TNFSF14–LTBR signaling activates NF-κB pathway culminating in CCL4 chemokine expression, important for monocyte recruitment and inflammation.</p>
+</li>
+</ol>
+<hr />
+<p>Step 2 &amp; 3: Hypothesis Generation for Each Selected LR Pair</p>
+<hr />
+<p><strong>Hypothesis 1</strong></p>
+<p>Ligand–Receptor: TNF – TNFRSF1A<br />
+Branch_path: TNF<strong><em>TNFRSF1A</em></strong>TRAF2<strong><em>MAP3K5</em></strong>MAP2K3<strong><em>MAPK14</em></strong>MAX<br />
+PAS: 2.1701472321116<br />
+p_val: 0.005<br />
+Rationale: This pair shows the highest PAS and a significant p-value, with a well-characterized inflammatory signaling cascade relevant to monocyte activation in peripheral blood.</p>
+<p>Mechanistic Hypothesis:</p>
+<ol>
+<li>
+<p><strong>Ligand induction in Memory CD4 T cells:</strong> Peripheral inflammatory stressors such as infection or tissue damage induce TNF expression in activated Memory CD4 T cells. These cells respond to pathogen-associated molecular patterns and pro-inflammatory cytokines by secreting TNF as a key effector cytokine.</p>
+</li>
+<li>
+<p><strong>Receptor function in CD14+ Monocytes:</strong> TNFRSF1A (TNF receptor 1) on CD14+ monocytes is a primary receptor mediating TNF signaling. It triggers downstream pathways that regulate inflammation, apoptosis, and cell survival, enabling monocytes to respond dynamically to inflammatory cues.</p>
+</li>
+<li>
+<p><strong>Gene-by-gene Branch_path analysis:</strong>  </p>
+</li>
+<li><strong>TNF</strong> binds <strong>TNFRSF1A</strong>, initiating receptor trimerization and recruitment of adaptor proteins.  </li>
+<li><strong>TRAF2</strong> (TNF receptor-associated factor 2) is recruited to the receptor complex, acting as an E3 ubiquitin ligase and scaffold to propagate signaling.  </li>
+<li><strong>MAP3K5</strong> (also known as ASK1) is activated downstream of TRAF2, acting as a MAP kinase kinase kinase that phosphorylates MAP2Ks.  </li>
+<li><strong>MAP2K3</strong> is phosphorylated by MAP3K5, serving as a MAP kinase kinase that activates MAPK14.  </li>
+<li><strong>MAPK14</strong> (p38α MAP kinase) is a critical stress-activated kinase that translocates to the nucleus to regulate transcription factors.  </li>
+<li>
+<p><strong>MAX</strong> is a transcription factor that forms heterodimers with MYC family members, regulating gene expression programs controlling cell proliferation and differentiation.</p>
+</li>
+<li>
+<p><strong>Effect on CD14+ Monocytes:</strong> Activation of MAPK14 leads to phosphorylation and activation of MAX, which modulates transcription of genes involved in monocyte differentiation, cytokine production, and survival. This signaling cascade enhances monocyte inflammatory responses and primes them for effective pathogen clearance or tissue remodeling.</p>
+</li>
+<li>
+<p><strong>Broader implication in PBMC pathology:</strong> This TNF–TNFRSF1A axis mediates a feed-forward inflammatory loop between Memory CD4 T cells and monocytes, amplifying immune activation in peripheral blood. Dysregulation may contribute to chronic inflammation or autoimmune pathology by sustaining monocyte activation and cytokine release, influencing disease progression.</p>
+</li>
+</ol>
+<hr />
+<p><strong>Hypothesis 2</strong></p>
+<p>Ligand–Receptor: IFNG – IFNGR2<br />
+Branch_path: IFNG<strong><em>IFNGR2</em></strong>STAT1<strong><em>TRAF2</em></strong>RAC1___NCF2<br />
+PAS: 1.75125200743528<br />
+p_val: 0.004<br />
+Rationale: IFNG signaling is central to monocyte activation and antimicrobial responses; this branch path includes key transcriptional and cytoskeletal regulators relevant to monocyte function.</p>
+<p>Mechanistic Hypothesis:</p>
+<ol>
+<li>
+<p><strong>Ligand induction in Memory CD4 T cells:</strong> IFNG production is induced in Memory CD4 T cells upon antigen recognition and inflammatory stimuli such as viral infection or intracellular bacterial challenge. IFNG acts as a potent activator of innate immune cells.</p>
+</li>
+<li>
+<p><strong>Receptor function in CD14+ Monocytes:</strong> IFNGR2 is the beta chain of the interferon gamma receptor complex on monocytes, essential for signal transduction upon IFNG binding. It mediates activation of the JAK-STAT pathway to induce gene expression changes.</p>
+</li>
+<li>
+<p><strong>Gene-by-gene Branch_path analysis:</strong>  </p>
+</li>
+<li><strong>IFNG</strong> binds to the IFNGR1/IFNGR2 receptor complex, triggering receptor dimerization and activation.  </li>
+<li><strong>STAT1</strong> is phosphorylated and activated by associated JAK kinases, then translocates to the nucleus to induce transcription of interferon-stimulated genes.  </li>
+<li><strong>TRAF2</strong> is recruited downstream, linking to additional signaling pathways including NF-κB and MAP kinases.  </li>
+<li><strong>RAC1</strong>, a small GTPase, is activated, regulating actin cytoskeleton dynamics and cell migration.  </li>
+<li>
+<p><strong>NCF2</strong> (neutrophil cytosolic factor 2) is a component of the NADPH oxidase complex involved in reactive oxygen species (ROS) generation.</p>
+</li>
+<li>
+<p><strong>Effect on CD14+ Monocytes:</strong> This cascade enhances monocyte antimicrobial functions by promoting transcription of inflammatory genes (via STAT1), activating cytoskeletal rearrangements (via RAC1) for migration and phagocytosis, and stimulating ROS production (via NCF2) to kill pathogens.</p>
+</li>
+<li>
+<p><strong>Broader implication in PBMC pathology:</strong> The IFNG–IFNGR2 pathway orchestrates monocyte activation and microbial defense in peripheral blood. Dysregulation may lead to impaired pathogen clearance or excessive inflammation, contributing to chronic inflammatory or autoimmune diseases.</p>
+</li>
+</ol>
+<hr />
+<p><strong>Hypothesis 3</strong></p>
+<p>Ligand–Receptor: TNFSF14 – LTBR<br />
+Branch_path: TNFSF14<strong><em>LTBR</em></strong>TRAF2<strong><em>MAP3K7</em></strong>IKBKB<strong><em>NFKBIA</em></strong>NFKB1___CCL4<br />
+PAS: 1.44358198475484<br />
+p_val: 0.03<br />
+Rationale: TNFSF14 (LIGHT) signaling through LTBR activates NF-κB pathway culminating in chemokine expression, critical for monocyte recruitment and inflammatory responses.</p>
+<p>Mechanistic Hypothesis:</p>
+<ol>
+<li>
+<p><strong>Ligand induction in Memory CD4 T cells:</strong> TNFSF14 is upregulated in activated Memory CD4 T cells during immune responses, particularly under inflammatory or infectious stress, acting as a costimulatory molecule and modulator of immune cell interactions.</p>
+</li>
+<li>
+<p><strong>Receptor function in CD14+ Monocytes:</strong> LTBR (lymphotoxin beta receptor) on monocytes transduces signals from TNFSF14 binding, activating canonical and non-canonical NF-κB pathways that regulate immune and inflammatory gene expression.</p>
+</li>
+<li>
+<p><strong>Gene-by-gene Branch_path analysis:</strong>  </p>
+</li>
+<li><strong>TNFSF14</strong> binds <strong>LTBR</strong>, triggering receptor oligomerization.  </li>
+<li><strong>TRAF2</strong> is recruited to LTBR, serving as a signaling adaptor and E3 ubiquitin ligase.  </li>
+<li><strong>MAP3K7</strong> (TAK1) is activated downstream, phosphorylating IKK complex components.  </li>
+<li><strong>IKBKB</strong> (IKKβ) phosphorylates inhibitors of NF-κB, marking them for degradation.  </li>
+<li><strong>NFKBIA</strong> (IκBα) degradation releases NF-κB transcription factors.  </li>
+<li><strong>NFKB1</strong> (p50 subunit) translocates to the nucleus to drive transcription of target genes.  </li>
+<li>
+<p><strong>CCL4</strong> is a chemokine gene induced by NF-κB, encoding a ligand that recruits additional immune cells.</p>
+</li>
+<li>
+<p><strong>Effect on CD14+ Monocytes:</strong> Activation of this pathway leads to robust expression of CCL4, promoting recruitment of other leukocytes to sites of inflammation. It also sustains monocyte activation and survival, enhancing their contribution to immune responses.</p>
+</li>
+<li>
+<p><strong>Broader implication in PBMC pathology:</strong> The TNFSF14–LTBR axis amplifies inflammatory signaling in peripheral blood monocytes, facilitating immune cell recruitment and sustaining inflammation. Persistent activation may contribute to chronic inflammatory diseases or autoimmune pathology by maintaining a pro-inflammatory milieu.</p>
+</li>
+</ol>
+<hr />
+<p>These three hypotheses represent distinct ligand–receptor pairs with unique downstream signaling cascades, all relevant to Memory CD4 T cell to CD14+ monocyte communication in Peripheral Blood Mononuclear Cells. Each describes a mechanistic chain from ligand induction to functional consequence in monocytes, illuminating potential pathways driving immune activation and pathology.</p>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 16:43:20
+        </div>
+    </div>
+</body>
+</html>

@@ -1,41 +1,52 @@
-## iS2C2 With Ollama LLM tutorial
+## iS2C2 With Ollama LLM Tutorial
+> To learn more about S2C2, please visit the [S2C2](https://github.com/methodistsmab/S2C2) repository.
+
+## Prerequisites
+- R version 4.3.1 or higher
+- Python 3.9
+- Conda package manager
+- Internet connection for downloading packages and models
 
 ## Installation of iS2C2
 
-For the whole algorithm detail, please refer to our [S2C2](https://github.com/methodistsmab/S2C2) github repo.
+For detailed algorithm information, please refer to our [S2C2](https://github.com/methodistsmab/S2C2) GitHub repository.
 
+### Step 1: Install R Dependencies
+Install the required R packages:
 
-
-Install crosstalk, S2C2 algorithm packages 
-
- Use R version 4.3.1+
 ```bash
 Rscript -e "install.packages(c('Seurat', 'SingleCellExperiment', 'openxlsx', 'optparse', 'presto', 'jsonlite', 'DescTools', 'plyr', 'dplyr', 'homologene', 'ggplot2', 'reshape2', 'stringr'), repos='https://cran.rstudio.com/')"
 ```
 
+> **Note for Linux users**: Some Bioconductor packages like SingleCellExperiment may need to be installed manually using BiocManager.
 
+### Step 2: Set Up Python Environment
+Create and activate a conda environment:
 
-Install LLM Python packages
-
-Use Python 3.9
 ```bash
 conda create -n is2c2 python=3.9
 conda activate is2c2
 ```
+
+### Step 3: Install Python Dependencies
+Install the required Python packages:
+
 ```bash
 pip install -q -r requirements.txt
 ```
 
-Ollama download & Install
-  1. Visit the [Ollama official website](https://ollama.com/download)
-  2. Download the installer for your operating system
-  3. Follow the installation instructions provided
+### Step 4: Install Ollama
+1. Visit the [Ollama official website](https://ollama.com/download)
+2. Download the installer for your operating system
+3. Follow the installation instructions provided
 
-Check ollama server status
+### Step 5: Verify Ollama Installation
+Check if the Ollama server is running properly:
 
 ```bash
 curl http://localhost:11434
 ```
+
 You should see `Ollama is running`
 
 Alternatively, you can visit http://localhost:11434 in your browser. If the Ollama server is running properly, the browser will display the following:
@@ -43,32 +54,36 @@ Alternatively, you can visit http://localhost:11434 in your browser. If the Olla
 ![ollama](/screenshots/ollama-success.png)
 
 ## Data
-The iS2C2 example data are avaliable in [Google Drive](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link)
+The iS2C2 example data are available in [Google Drive](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link).
 
+**Download the example data** and place it in your working directory before proceeding with the analysis.
 
 ## Usage
 
-### 1. Start Ollama Service
+### Step 1: Start Ollama Service
+
 ```bash
 ollama serve
 ```
 
-### 2. Download Example Model
-> If you want to use additional models, please refer to the detailed model information on https://ollama.com/search, download your preferred model using ollama pull <model-name>, and then specify it using the --model parameter in your command.
+### Step 2: Download Language Model
+
 ```bash
 ollama pull llama3.2
 ```
 
-### 3. Run Example Analysis
+> **Note**: If you want to use additional models, please refer to the detailed model information on https://ollama.com/search, download your preferred model using `ollama pull <model-name>`, and then specify it using the `--model` parameter in your command.
 
-Make pipeline executable
+### Step 3: Prepare the Pipeline
+Make the pipeline executable:
+
 ```bash
 chmod +x iS2C2.sh
 ```
 
-Run with example data with default parameters setting. (You can check the parameter deials in the following)
+### Step 4: Run Example Analysis
+Run the analysis with example data using default parameter settings:
 
-Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link)
 ```bash
 ./iS2C2.sh \
   --rds-file "./pbmc_control_example_clean_7_21_25.rds" \
@@ -80,14 +95,14 @@ Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-
   --receiver "CD14+ Mono" \
   --species "human" \
   --assay "RNA" \
-  --disease "AD" \
-  --cell-type "astrocyte-excitatory neuron" \
-  --disease-context "Alzheimer's disease" \
+  --cell-type "Memory CD4 T-CD14+ Mono" \
+  --disease-context "Peripheral Blood Mononuclear Cells" \
   --model "llama3.2" \
   --algorithm "s2c2"
 ```
 
-Explain about the 
+Explain about the parameters as follows: 
+
 ```bash
 ./iS2C2.sh \  
   --rds-file "example.rds (The Seurat RDS file containing single-cell RNA sequencing data)" \
@@ -105,75 +120,9 @@ Explain about the
 * For more detailed information about the parameters, please refer to [parameter-table](../../parameters.md)
 * Result will be saved in the default work-directory: /results
 
+> **Note**: Results will be saved in the default working directory: `/results`.
 
 ## Expected Output
+For more details, see the [example report](../../output/ollama_qwen25_8b_s2c2/llm_report_ollama_Memory_CD4_T_CD14+_Mono_Peripheral_Blood_Mononuclear_Cells_qwen2514b_s2c2_20250731_162755.html).
 
-This section explains how to interpret the output generated by the automated pipeline for hypothesis generation. We'll go through each step using a concrete example output.
-
----
-
-##### **Step 1: Filter and Rank Ligand-Receptor Pairs**
-##### **Hypothesis 1: TNF-TNFRSF1A Signaling Drives p38 MAPK-Mediated Neuronal Stress**
-A composite ranking was performed on the `LLM_significant_branches`.csv data by summing the rank of the p-value (ascending) and the rank of the Pathway Activity Score (PAS) (descending). The top-ranked unique ligand-receptor pairs were selected for hypothesis generation.
-
-![Example](/screenshots/s2c2_report.png)
-
-
-
-##### **Step 2: Select One Valid LR Pair**
-
-- **Selected Pair:** TNF–TNFRSF1A
-
-- **Branch_path:** `TNF___TNFRSF1A___TRAF2___MAP3K5___MAP2K3___MAPK14___MAX`
-
-- **PAS:** 2.170147
-
-- **p_val:** 0.001
-
-- **Rationale for Selection:** This pair has the highest possible composite rank (Rank 1 for PAS, Rank 1 for p-value), indicating extreme statistical significance and high predicted pathway activity. The ligand-receptor pair (TNF-TNFRSF1A) is a canonical neuroinflammatory axis heavily implicated in Alzheimer's disease, and the downstream path involves the well-established p38 MAPK stress pathway, making it a prime candidate for a biologically coherent hypothesis.
-
-##### ✅ Breakdown:
-- **Selected Pair**: The signaling ligand-receptor pair identified between two cell types.
-- **Branch_path**: A stepwise gene cascade starting from the ligand, through the receptor, to the downstream effectors.
-- **PAS (Pathway Activity Score)**: Higher scores reflect stronger biological relevance.
-- **p_val (p-value)**: Indicates the statistical significance; very low values imply highly significant pathways.
-
-#####  **Step 3: Generate a Mechanistic Hypothesis**
-The pipeline then automatically explains the selected pair's biological role step by step.
-
-##### ✔️ Example Biological Reasoning:
-
-1. **Ligand Induction in Astrocytes:** In the Alzheimer's disease (AD) brain, astrocytes become reactive (a state known as astrogliosis) in response to chronic exposure to pathological triggers like amyloid-beta (Aβ) oligomers and plaques. This reactive transformation engages intracellular inflammatory signaling cascades, particularly the NF-κB pathway, which drives the potent upregulation and secretion of the pro-inflammatory cytokine **TNF** (Tumor Necrosis Factor) into the extracellular space.
-
-2. **Receptor Function in Excitatory Neurons:** The receptor, **TNFRSF1A** (TNF Receptor 1), is constitutively expressed on the surface of excitatory neurons. While classically known as a "death receptor," its signaling is highly context-dependent. In the AD context, its activation by TNF can initiate non-apoptotic signaling cascades that induce a state of cellular stress, impair synaptic function, and sensitize the neuron to other insults like glutamate-mediated excitotoxicity.
-
-3. **Gene-by-Gene Breakdown of the Branch_path:**
-
-   * Astrocyte-secreted **TNF** binds to **TNFRSF1A** on the neuronal membrane, causing the receptor to trimerize.
-
-   * This conformational change recruits the adapter protein **TRAF2** (TNF receptor-associated factor 2) to the receptor's intracellular death domain.
-
-   * **TRAF2** acts as a scaffold to recruit and activate **MAP3K5** (also known as ASK1), a key stress-sensing kinase that is activated by inflammatory signals and oxidative stress.
-
-   * Activated **MAP3K5** phosphorylates and activates its downstream target, **MAP2K3**, a specific member of the mitogen-activated protein kinase kinase family.
-
-   * **MAP2K3** then directly phosphorylates and activates **MAPK14** (widely known as p38α MAPK), a central node in the cellular response to stress and inflammation.
-
-   * Activated **MAPK14** (p38 MAPK) translocates into the nucleus, where it phosphorylates the transcription factor **MAX** (MYC-associated factor X).
-
-4. **Final Gene's Effect on Neuronal Function:** **MAX** is a transcription factor that must form a heterodimer, typically with MYC, to regulate genes involved in cell cycle, metabolism, and apoptosis. In a post-mitotic neuron, this pathway is not pro-proliferative. Instead, the phosphorylation of MAX by the p38 MAPK stress kinase likely alters its binding affinity and partner choice, leading to the dysregulation of critical transcriptional programs. This can shift gene expression towards a pro-apoptotic state or disrupt metabolic homeostasis, rendering the neuron highly vulnerable to subsequent damage.
-
-5. **Implication for Alzheimer's Disease Pathology:** This signaling cascade provides a direct molecular mechanism linking astrocyte-driven neuroinflammation to neuronal dysfunction and death in AD. The chronic activation of the neuronal p38 MAPK pathway by astrocytic TNF is a well-documented hallmark of the AD brain and is known to contribute to both tau hyperphosphorylation (a key pathological feature of AD) and synaptic loss. This specific pathway (TNF → p38 → MAX) suggests that neuroinflammation hijacks core transcriptional machinery within neurons, driving them towards a stressed, dysfunctional state that precedes their eventual demise and contributes to the progressive cognitive decline seen in Alzheimer's disease.
-
-##### 🔁 Repeating the Process for Other LR Pairs
-
-After generating the first hypothesis, the pipeline **automatically repeats the process for the remaining top-ranked ligand-receptor pairs**.
-
-For **each additional LR pair**, the following steps are performed:
-
-- ✅ **Detailed hypothesis generation** specific to the selected ligand-receptor pair.
-- ✅ **Step-by-step breakdown** of the downstream signaling cascade (Branch_path).
-- ✅ **Explanation of the final effector gene's role** in the target (receiver) cell type.
-- ✅ **Summary of the pathway's relevance** to disease mechanisms.
-
-This approach ensures that you receive **multiple independent, biologically interpretable hypotheses** derived from your **cell-cell crosstalk data**, each enriched with **clear mechanistic insights** ready for downstream validation.
+![example-output](../../screenshots/output/iS2C2/ollama/ollama-s2c2.png)

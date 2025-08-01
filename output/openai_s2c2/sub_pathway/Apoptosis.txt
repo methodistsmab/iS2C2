@@ -1,0 +1,5 @@
+from	to	Direction	Type
+TNF	TNFRSF1A	directed	LR
+TNFRSF1A	FADD	directed	process(activation)
+FADD	CASP8	directed	process(activation)
+CASP8	CASP3	directed	process(activation)

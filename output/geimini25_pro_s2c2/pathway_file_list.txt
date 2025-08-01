@@ -1,0 +1,6 @@
+Pathway_name	p_val	pathway_node_source	pathway_source
+MAPK_signaling_pathway	0.002	MAPK_signaling_pathway_nodes.txt	MAPK_signaling_pathway.txt
+Osteoclast_differentiation	0.004	Osteoclast_differentiation_nodes.txt	Osteoclast_differentiation.txt
+TNF_signaling_pathway	0.026	TNF_signaling_pathway_nodes.txt	TNF_signaling_pathway.txt
+NF-kappa_B_signaling_pathway	0.03	NF_kappa_B_signaling_pathway_nodes.txt	NF_kappa_B_signaling_pathway.txt
+Apoptosis	0.032	Apoptosis_nodes.txt	Apoptosis.txt

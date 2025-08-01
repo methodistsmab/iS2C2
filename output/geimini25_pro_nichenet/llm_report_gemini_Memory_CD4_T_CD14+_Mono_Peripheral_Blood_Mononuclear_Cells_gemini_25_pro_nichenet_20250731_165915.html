@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gemini LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 17:00:08</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">gemini-2.5-pro</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.7</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">100000</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context limit</div>
+                    <div class="metadata-value">2,000,000 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Thinking budget</div>
+                    <div class="metadata-value">None</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">nichenet</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">52.47 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">8,339 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">2,084</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Actual tokens used</div>
+                    <div class="metadata-value">31,933</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>LR file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/example-data/NicheNet/From_Memory CD4 T_To_CD14+ Mono_LR.csv (1,530 chars)</p>
+            <p><strong>LT file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/example-data/NicheNet/From_Memory CD4 T_To_CD14+ Mono_LT.csv (28,845 chars)</p>
+            <p><strong>Total content processed:</strong> 30,375 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>Gemini LLM Response</h2>
+            <p>Of course. As a systems biologist specializing in cell-cell communication and neurodegenerative diseases, I will analyze the provided interaction data between Memory CD4 T cells and CD14+ Monocytes to formulate three testable hypotheses.</p>
+<h3><strong>Analysis Overview</strong></h3>
+<p>The provided data represents a snapshot of the communication landscape between two critical immune cell types in the peripheral blood. Memory CD4 T cells act as orchestrators of the adaptive immune response, while CD14+ monocytes are key innate immune cells that can differentiate into macrophages and dendritic cells, contributing significantly to both inflammation and tissue repair. In the context of neurodegenerative diseases like Alzheimer's Disease (AD), Multiple Sclerosis (MS), and Parkinson's Disease (PD), the state of peripheral immune cells is crucial, as activated monocytes can cross a compromised blood-brain barrier and contribute to neuroinflammation.</p>
+<p>The analysis integrates two data types:
+1.  <strong>Ligand-Receptor (LR) interactions (<code>LR.csv</code>):</strong> This predicts direct physical interactions between proteins on the T cell surface (ligands) and the monocyte surface (receptors). The <code>weight</code> indicates the predicted strength of this interaction.
+2.  <strong>Ligand-Target (LT) interactions (<code>LT.csv</code>):</strong> This predicts the downstream effect of a T cell-derived ligand on gene expression (targets) within the monocyte. The <code>weight</code> indicates the regulatory potential of the ligand on the target gene.</p>
+<p>By combining these datasets, we can trace a signal from the T cell to a specific receptor on the monocyte and predict its functional consequence on the monocyte's genetic programming.</p>
+<hr />
+<p>Here are the top three hypotheses based on the data and my domain expertise:</p>
+<h3><strong>Hypothesis 1: Memory CD4 T cells drive a pro-inflammatory, M1-like monocyte phenotype via the IFNG-IFNGR1 axis, promoting neuroinflammation.</strong></h3>
+<ul>
+<li>
+<p><strong>Predicted Ligand-Receptor Pair:</strong> <strong>IFNG → IFNGR1</strong> (Interferon-gamma → Interferon-gamma receptor 1)</p>
+<ul>
+<li><strong>Rationale:</strong> This pair has a very high interaction weight in the LR data (<code>weight</code> = 1.587). IFNG is the canonical cytokine produced by Th1-polarized Memory CD4 T cells and is a potent activator of monocytes, driving them towards a classical M1 pro-inflammatory state.</li>
+</ul>
+</li>
+<li>
+<p><strong>Associated Downstream Pathway Branch:</strong> <strong>Antigen Presentation and Inflammasome Activation</strong></p>
+<ul>
+<li><strong>Rationale:</strong> In the LT data, the ligand <code>IFNG</code> is shown to be a powerful regulator of genes critical for this pathway. The highest-weighted targets include:<ul>
+<li><strong>HLA genes (<code>HLA-A</code>, <code>HLA-C</code>, <code>HLA-DPA1</code>, <code>HLA-DRA</code>, <code>HLA-E</code>):</strong> A coordinated upregulation of the antigen-presenting machinery, indicating the monocyte is being programmed to present antigens more effectively, a hallmark of M1 activation.</li>
+<li><strong><code>CASP4</code> (Caspase 4):</strong> A key component of the non-canonical inflammasome, which, upon activation, leads to pyroptotic cell death and the release of mature inflammatory cytokines like IL-1β and IL-18.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Biological &amp; Neurodegenerative Context:</strong> Chronic neuroinflammation is a core feature of most neurodegenerative diseases. M1-polarized monocytes/macrophages are known to produce neurotoxic factors, including reactive oxygen species and pro-inflammatory cytokines. This hypothesis posits that peripheral T cells are actively instructing monocytes to adopt this aggressive, neurotoxic profile.</p>
+<ul>
+<li><strong>Actionable Investigation:</strong> <strong>Targeting the IFNG-IFNGR1 signaling axis.</strong> This could be achieved using a neutralizing antibody against IFNGR1. The efficacy of this blockade could be measured by quantifying the expression of downstream targets like <code>HLA-A</code> and <code>CASP4</code> in monocytes after co-culture with Memory CD4 T cells, providing a clear, data-driven therapeutic target to dampen a specific axis of neuroinflammation.</li>
+</ul>
+</li>
+</ul>
+<h3><strong>Hypothesis 2: The TNF-TNFRSF1A interaction creates a potent inflammatory feedback loop by activating the NF-κB and IRF signaling cascades in monocytes.</strong></h3>
+<ul>
+<li>
+<p><strong>Predicted Ligand-Receptor Pair:</strong> <strong>TNF → TNFRSF1A</strong> (Tumor Necrosis Factor → TNF Receptor Superfamily Member 1A)</p>
+<ul>
+<li><strong>Rationale:</strong> This L-R pair shows a high interaction weight (<code>weight</code> = 1.401). TNF is a master pro-inflammatory cytokine with well-documented roles in the pathogenesis of neurodegenerative diseases.</li>
+</ul>
+</li>
+<li>
+<p><strong>Associated Downstream Pathway Branch:</strong> <strong>NF-κB and Interferon Regulatory Factor (IRF) Activation</strong></p>
+<ul>
+<li><strong>Rationale:</strong> The LT data for the <code>TNF</code> ligand points directly to the activation of these pathways. Key high-weight targets include:<ul>
+<li><strong><code>NFKBIA</code> (IκBα):</strong> A direct negative feedback regulator of the NF-κB pathway. Its strong upregulation is a classic signature of intense NF-κB activation.</li>
+<li><strong><code>IRF7</code>:</strong> A master regulator of the type I interferon response, linking TNF signaling to antiviral/interferon-related inflammation.</li>
+<li><strong><code>IER3</code>, <code>TNFAIP2</code>, <code>JUNB</code>, <code>FOS</code>:</strong> These are immediate early genes and transcription factors downstream of TNF/NF-κB signaling that orchestrate a broad inflammatory response, including cell migration and cytokine production.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Biological &amp; Neurodegenerative Context:</strong> The TNF-NF-κB axis is a central hub for inflammation. In AD, for instance, TNF levels are elevated in both the periphery and the CNS. This hypothesis suggests that T cells use TNF not just as a direct effector but as an amplifier, turning on transcriptional programs in monocytes that prepare them for a sustained and diverse inflammatory response.</p>
+<ul>
+<li><strong>Actionable Investigation:</strong> <strong>Inhibition of downstream NF-κB signaling.</strong> While anti-TNF biologics are one option, this data suggests that a more targeted approach could be to inhibit a key downstream node, such as the IKK complex (which phosphorylates IκBα). The effect of such an inhibitor could be validated by measuring the downregulation of TNF target genes like <code>IRF7</code> and <code>PLAUR</code> (plasminogen activator, urokinase receptor) in monocytes.</li>
+</ul>
+</li>
+</ul>
+<h3><strong>Hypothesis 3: Memory CD4 T cells promote an anti-inflammatory, pro-resolution state in monocytes via IL-4 signaling, which is characterized by the induction of the IL-1 Receptor Antagonist.</strong></h3>
+<ul>
+<li>
+<p><strong>Predicted Ligand-Receptor Pair:</strong> <strong>IL4 → IL2RG</strong> (Interleukin-4 → Interleukin 2 Receptor Subunit Gamma)</p>
+<ul>
+<li><strong>Rationale:</strong> This interaction has the highest weight in the entire LR dataset (<code>weight</code> = 1.613). IL-4 is the signature cytokine of Th2 cells and is the primary driver of alternative M2 macrophage polarization, which is associated with anti-inflammatory functions and tissue repair. <code>IL2RG</code> is the common gamma chain, a shared receptor component for several cytokines, including IL-4.</li>
+</ul>
+</li>
+<li>
+<p><strong>Associated Downstream Pathway Branch:</strong> <strong>M2 Polarization and Inflammation Resolution</strong></p>
+<ul>
+<li><strong>Rationale:</strong> The LT data for the <code>IL4</code> ligand strongly supports this function. Key regulated targets include:<ul>
+<li><strong><code>IL1RN</code> (IL-1 Receptor Antagonist):</strong> A potent anti-inflammatory protein that directly blocks the pro-inflammatory signaling of IL-1β. Its induction is a powerful mechanism to quell inflammation. (<code>weight</code> = 0.221)</li>
+<li><strong><code>CD163</code> and <code>CLEC10A</code>:</strong> Well-established cell-surface markers of M2-polarized macrophages, which are involved in phagocytosis and inflammation resolution.</li>
+<li><strong><code>SOCS1</code> (Suppressor of Cytokine Signaling 1):</strong> An intracellular negative regulator that dampens pro-inflammatory signaling pathways (e.g., from IFN-gamma), further reinforcing an anti-inflammatory state.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Biological &amp; Neurodegenerative Context:</strong> A failure to resolve inflammation and clear pathological protein aggregates (like amyloid-beta) is a key deficit in neurodegenerative disease. Promoting a shift from M1 to M2 monocytes/microglia is a major therapeutic goal. This hypothesis identifies a primary endogenous pathway for achieving this shift.</p>
+<ul>
+<li><strong>Actionable Investigation:</strong> <strong>Augmenting, not blocking, the IL-4 signaling pathway.</strong> This represents a pro-resolution therapeutic strategy. One could investigate the use of recombinant IL-4 or small molecule mimetics to enhance this T-cell-driven signal. The primary endpoint would be the successful upregulation of <code>IL1RN</code> and <code>CD163</code> in peripheral monocytes, with the ultimate goal of enhancing their neuroprotective and phagocytic capacity.</li>
+</ul>
+</li>
+</ul>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 17:00:08
+        </div>
+    </div>
+</body>
+</html>

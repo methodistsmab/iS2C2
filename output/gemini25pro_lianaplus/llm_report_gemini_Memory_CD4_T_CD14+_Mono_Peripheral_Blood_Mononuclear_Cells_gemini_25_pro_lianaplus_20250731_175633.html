@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gemini LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 17:57:27</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">gemini-2.5-pro</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.7</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">100000</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context limit</div>
+                    <div class="metadata-value">2,000,000 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Thinking budget</div>
+                    <div class="metadata-value">None</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">lianaplus</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">54.08 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">7,681 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">1,920</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Actual tokens used</div>
+                    <div class="metadata-value">10,390</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>Significant branches file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/pbmc-process/PBMC_memory_cd4_to_cd14_mono.csv (6,634 chars)</p>
+            <p><strong>Total content processed:</strong> 6,634 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>Gemini LLM Response</h2>
+            <p>Excellent. This is a fascinating dataset detailing the communication from Memory CD4 T cells to CD14+ Monocytes. As a systems biologist focused on neurodegeneration, my primary interest lies in how peripheral immune cell crosstalk can initiate or exacerbate the chronic neuroinflammation that is a hallmark of diseases like Alzheimer's (AD), Parkinson's (PD), and Amyotrophic Lateral Sclerosis (ALS).</p>
+<p>The provided data from Peripheral Blood Mononuclear Cells (PBMCs) gives us a window into the state of the systemic immune environment. Dysregulation here can lead to increased blood-brain barrier (BBB) permeability and infiltration of activated peripheral immune cells into the central nervous system (CNS), or the systemic release of inflammatory factors that prime brain-resident microglia for a hyper-reactive response.</p>
+<p>My analysis will prioritize ligand-receptor (L-R) pairs that are statistically significant (<code>cellchat_pvals</code> &lt; 0.05), have a high communication probability (<code>lr_probs</code>), and are known to be involved in potent inflammatory or immune-regulatory pathways relevant to neurodegeneration.</p>
+<p>Here are three biologically meaningful hypotheses based on this data:</p>
+<hr />
+<h3><strong>Hypothesis 1: T-cell derived RPS19 potentiates a pro-inflammatory monocyte phenotype via non-canonical complement receptor activation, contributing to systemic inflammation.</strong></h3>
+<ul>
+<li><strong>Predicted Ligand-Receptor Pair:</strong> <strong>RPS19 -&gt; C5AR1</strong></li>
+<li><strong>Rationale:</strong>
+    This interaction stands out as the one with the highest communication probability (<code>lr_probs</code> = 5.12e-05) and a definitive p-value of 0.0. While the complement component C5a is the canonical ligand for C5AR1, extracellular Ribosomal Protein S19 (RPS19) has been identified as a non-canonical agonist. The C5a-C5AR1 axis is one of the most powerful pro-inflammatory and chemotactic pathways in the innate immune system. Its activation on monocytes triggers a cascade of events including cytokine release (TNF-α, IL-1β, IL-6), oxidative burst, and migration towards inflammatory sites.<ul>
+<li><strong>Neurodegenerative Context:</strong> The complement system is heavily implicated in neurodegeneration, with C5a and C5AR1 being upregulated in the AD brain, where they are associated with neuroinflammation and neuronal damage. My hypothesis is that in a pre-disease or active disease state, activated Memory CD4 T cells release RPS19 into the circulation. This acts on CD14+ monocytes, priming them via C5AR1 signaling. These "pre-activated" monocytes are then more likely to migrate across a compromised BBB or to release a storm of systemic cytokines that further sensitize microglia in the brain, thus linking a peripheral T-cell signal directly to a key neuroinflammatory pathway.</li>
+</ul>
+</li>
+<li><strong>Predicted Downstream Pathway Branch to Target:</strong>
+    C5AR1 is a G-protein coupled receptor (GPCR). Upon binding RPS19 or C5a, it primarily signals through Gαi, leading to the activation of multiple pathways. A key pro-inflammatory branch is the <strong>p38 MAPK pathway</strong>. Activation of p38 MAPK is critical for the transcriptional upregulation of pro-inflammatory cytokines like TNF-α and IL-1β. <strong>Targeting the p38 MAPK phosphorylation cascade</strong> downstream of C5AR1 in monocytes could be a specific strategy to quell this T-cell-induced inflammatory amplification loop without affecting other homeostatic functions of the cells.</li>
+</ul>
+<hr />
+<h3><strong>Hypothesis 2: A pro-resolving signal from T-cells to monocytes is active but may be insufficient or dysregulated in the context of chronic disease.</strong></h3>
+<ul>
+<li><strong>Predicted Ligand-Receptor Pair:</strong> <strong>ANXA1 -&gt; FPR1</strong></li>
+<li><strong>Rationale:</strong>
+    This interaction is also highly significant (p-value = 0.0) and ranks fourth in communication probability. Unlike the first hypothesis, this L-R pair represents a potentially <em>anti-inflammatory</em> or <em>pro-resolving</em> signal. Annexin A1 (ANXA1) is a key mediator in the resolution of inflammation, often by promoting monocyte apoptosis or shifting them towards a non-inflammatory "clean-up" phenotype. Its receptor, Formyl Peptide Receptor 1 (FPR1), is a classic chemotactic receptor, but its engagement by ANXA1 initiates this resolving cascade.<ul>
+<li><strong>Neurodegenerative Context:</strong> A leading theory in neurodegeneration is not just the presence of inflammation, but a "failure to resolve" inflammation, leading to a chronic, smoldering state. The presence of this ANXA1-&gt;FPR1 signal suggests that Memory CD4 T cells are actively trying to suppress monocyte activation. My hypothesis is that while this pathway is active, it may be functionally impaired in patients with or at risk for neurodegenerative disease. This could be due to insufficient ANXA1 production by T-cells or, more likely, a downstream signaling defect in the monocytes that makes them resistant to the pro-resolving effects of ANXA1. This creates a state of "T-cell exhaustion" where attempts to regulate monocytes fail.</li>
+</ul>
+</li>
+<li><strong>Predicted Downstream Pathway Branch to Target:</strong>
+    The pro-resolving effects of ANXA1 via FPR1 are often mediated by the <strong>inhibition of the NF-κB pathway</strong>. NF-κB is a master transcriptional regulator of pro-inflammatory genes. ANXA1 signaling can prevent the degradation of IκBα, the inhibitor of NF-κB, thus sequestering it in the cytoplasm. Investigating this specific branch is key. A therapeutic strategy would not be to block this pathway, but to <strong>potentiate it</strong>. One could search for small molecules that enhance the ability of the ANXA1-FPR1 complex to stabilize IκBα, effectively "restoring" the brakes on monocyte-driven inflammation.</li>
+</ul>
+<hr />
+<h3><strong>Hypothesis 3: T-cells sustain monocyte activation and survival through the MIF-CD44 axis, perpetuating a chronic inflammatory state.</strong></h3>
+<ul>
+<li><strong>Predicted Ligand-Receptor Pair:</strong> <strong>MIF -&gt; CD44</strong></li>
+<li><strong>Rationale:</strong>
+    This interaction is statistically significant (p-value = 0.028) and involves Macrophage Migration Inhibitory Factor (MIF), a pleiotropic and potent pro-inflammatory cytokine. MIF is an "upper-regulator" of inflammation that can override the immunosuppressive effects of glucocorticoids. Its receptor is a complex, often involving CD74 and the co-receptor CD44, which is expressed on the monocytes according to the data (<code>receptor_props</code> = 0.477). This interaction is known to promote cell survival (anti-apoptotic effects) and sustained production of inflammatory mediators.<ul>
+<li><strong>Neurodegenerative Context:</strong> MIF is consistently found at elevated levels in the CSF and brain tissue of AD patients and is linked to microglial activation and neurotoxicity. My hypothesis is that Memory CD4 T cells contribute to a systemic, chronic inflammatory state by releasing MIF. This MIF signal engages the CD44/CD74 complex on CD14+ monocytes, not just activating them, but also promoting their survival. This prevents the normal turnover of activated monocytes and establishes a persistent pool of pro-inflammatory cells in the periphery, which constantly fuel the neuroinflammatory fire through cytokine release and potential CNS infiltration.</li>
+</ul>
+</li>
+<li><strong>Predicted Downstream Pathway Branch to Target:</strong>
+    MIF signaling via the CD74/CD44 complex leads to the recruitment and activation of <strong>Src-family kinases</strong>, which in turn activate the <strong>PI3K/Akt survival pathway</strong>. The Akt pathway directly inhibits pro-apoptotic proteins like BAD and the FOXO transcription factors, thereby promoting cell survival. <strong>Targeting the PI3K/Akt phosphorylation cascade</strong> downstream of MIF-CD44 engagement would be a powerful strategy to specifically ablate the pro-survival signal that T-cells are providing to these inflammatory monocytes, encouraging their clearance from the system and breaking the cycle of chronic inflammation.</li>
+</ul>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 17:57:27
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+gene	gene_type	pathway
+MAP2K3	links	MAPK_signaling_pathway;TNF_signaling_pathway
+MAP3K7	links	Osteoclast_differentiation;TNF_signaling_pathway;NF-kappa_B_signaling_pathway
+MAPK14	TF	MAPK_signaling_pathway;Osteoclast_differentiation;TNF_signaling_pathway
+RPS6KA4	TF	TNF_signaling_pathway
+TNF	Ligand	MAPK_signaling_pathway;Osteoclast_differentiation;TNF_signaling_pathway;Apoptosis
+TNFRSF1B	Receptor	TNF_signaling_pathway
+TRAF2	links	MAPK_signaling_pathway;Osteoclast_differentiation;TNF_signaling_pathway;NF-kappa_B_signaling_pathway

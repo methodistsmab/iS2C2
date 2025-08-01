@@ -6,20 +6,17 @@ Copy the prompt words, and drag examples, LR_pairs.txt and significant_branches.
 ```bash
 prompt
 .
-├── LLM_Enhanced_Few_Prompt.txt ⬅️
-├── example1.txt ⬅️
-├── example2.txt ⬅️
-└── example3.txt ⬅️
+├── Enhanced_prompt_Few_shot.txt
+├── LLM_Simple_LIANA+_Prompt.txt 
+├── LLM_Simple_NicheNet_Prompt.txt ⬅
+├── example1.txt
+├── example2.txt
+└── example3.txt
 ```
 
+Also, with the NicheNet lr_result and lt_result.
 
-```bash
-results/sender_exampleCellTypeSender_receiver_exampleCellTypeReceiver_NA
-.
-├── LLM_significant_branches.csv ⬅️
-....
-├── node_table_logFC.txt
-├── receiver_overall_NK_T_cell.txt
-├── sender_markers_Prolif_Macrophage_DC.txt
-└── significant_branches.txt
-```
+
+## Expected Output
+
+![example-output-1](../../screenshots/output/nichenet/chatbox/nichenet-cb.png)

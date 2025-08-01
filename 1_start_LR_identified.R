@@ -295,6 +295,7 @@ find_ligand_receptor_significance <- function(seurat_object, markers_df, sender_
   specified_crosstalk <- as.numeric(LR_matrix[which(rownames(LR_matrix)==specified_sender), which(colnames(LR_matrix)==specified_receiver)])
   possible_crosstalks <- unlist(as.list(LR_matrix))
   possible_crosstalks <- possible_crosstalks[is.na(possible_crosstalks)==FALSE]
+  if (is.na(specified_crosstalk)){specified_crosstalk=0}
   if(specified_crosstalk > 0) {
     possible_crosstalks <- sort(possible_crosstalks, decreasing = TRUE)
   } else {
@@ -348,6 +349,7 @@ find_ligand_receptor_significance_subset <- function(seurat_object, markers_df, 
   specified_crosstalk <- as.numeric(LR_matrix[which(rownames(LR_matrix)==specified_sender), which(colnames(LR_matrix)==specified_receiver)])
   possible_crosstalks <- unlist(as.list(LR_matrix))
   possible_crosstalks <- possible_crosstalks[is.na(possible_crosstalks)==FALSE]
+  if (is.na(specified_crosstalk)){specified_crosstalk=0}
   if(specified_crosstalk > 0) {
     possible_crosstalks <- sort(possible_crosstalks, decreasing = TRUE)
   } else {

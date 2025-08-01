@@ -1,0 +1,9 @@
+gene	gene_type	pathway
+IKBKB	links	NF-kappa_B_signaling_pathway
+LTB	Ligand	NF-kappa_B_signaling_pathway
+LTBR	Receptor	NF-kappa_B_signaling_pathway
+MAP3K7	links	Osteoclast_differentiation;TNF_signaling_pathway;NF-kappa_B_signaling_pathway
+NFKB1	TF	NF-kappa_B_signaling_pathway
+NFKBIA	links	NF-kappa_B_signaling_pathway
+TNFSF14	Ligand	NF-kappa_B_signaling_pathway
+TRAF2	links	MAPK_signaling_pathway;Osteoclast_differentiation;TNF_signaling_pathway;NF-kappa_B_signaling_pathway

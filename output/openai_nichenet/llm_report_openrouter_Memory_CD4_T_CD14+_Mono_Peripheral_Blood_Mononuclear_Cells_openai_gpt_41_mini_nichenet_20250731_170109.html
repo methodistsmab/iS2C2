@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRouter LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OpenRouter LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 17:02:46</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">openai/gpt-4.1-mini</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.7</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">100000</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context limit</div>
+                    <div class="metadata-value">128,000 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">nichenet</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">97.42 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">5,342 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">1,335</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Actual tokens used</div>
+                    <div class="metadata-value">19,146</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>LR file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/example-data/NicheNet/From_Memory CD4 T_To_CD14+ Mono_LR.csv (1,530 chars)</p>
+            <p><strong>LT file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/example-data/NicheNet/From_Memory CD4 T_To_CD14+ Mono_LT.csv (28,845 chars)</p>
+            <p><strong>Total content processed:</strong> 30,375 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>OpenRouter LLM Response</h2>
+            <p>Based on the provided ligand-receptor (LR) interaction weights and downstream target (LT) gene expression weights between Memory CD4 T cells (ligand sources) and CD14+ monocytes (ligand targets) in peripheral blood mononuclear cells (PBMCs), I identified the top ligand-receptor pairs and their associated downstream signaling branches. Integrating this with established biological knowledge about immune cell crosstalk, here are three biologically meaningful hypotheses for further experimental investigation:</p>
+<hr />
+<h3>1. Hypothesis 1:</h3>
+<p><strong>CD80–CD28 interaction from Memory CD4 T cells activates NF-κB and cell survival pathways in CD14+ monocytes, promoting monocyte activation and inflammatory response.</strong></p>
+<ul>
+<li><strong>Rationale from data:</strong>  </li>
+<li>CD80 (ligand) → CD28 (receptor) has the highest LR weight (~1.59), indicating a strong interaction.  </li>
+<li>Downstream targets influenced by CD80 signaling in monocytes include MYC, FOS, NFKBIA, and PIM1 with elevated weights (~0.008–0.017), all known NF-κB or AP-1 pathway components involved in cell activation and survival.  </li>
+<li><strong>Biological background:</strong>  </li>
+<li>CD80-CD28 interaction is a classical costimulatory signal enhancing T cell activation but also modulates monocyte/macrophage functions.  </li>
+<li>NF-κB activation in monocytes leads to pro-inflammatory cytokine production and survival.  </li>
+<li><strong>Experimental focus:</strong>  </li>
+<li>Validate whether CD80-CD28 signaling from Memory CD4 T cells induces NF-κB activation in CD14+ monocytes.  </li>
+<li>Assess monocyte activation markers (e.g., CD86, cytokines) upon CD80-CD28 engagement.  </li>
+<li>Investigate effects on monocyte survival and proliferation signaling pathways (e.g., MYC, PIM1).</li>
+</ul>
+<hr />
+<h3>2. Hypothesis 2:</h3>
+<p><strong>TNF signaling via TNFRSF1A/B from Memory CD4 T cells triggers pro-apoptotic and inflammatory gene expression in CD14+ monocytes, contributing to monocyte-mediated inflammation.</strong></p>
+<ul>
+<li><strong>Rationale from data:</strong>  </li>
+<li>TNF → TNFRSF1A and TNFRSF1B have strong LR weights (1.40 and 1.04).  </li>
+<li>Downstream targets affected include BID, BIRC3, CCL5, FOS, JUNB, NFKBIA, TNFAIP2, and IL1B with high weights (~0.17–0.28), indicating activation of apoptosis regulators, chemokines, and NF-κB signaling.  </li>
+<li><strong>Biological background:</strong>  </li>
+<li>TNF signaling is a major pathway promoting inflammation and apoptosis in monocytes/macrophages.  </li>
+<li>TNFRSF1A often mediates apoptosis, while TNFRSF1B can modulate survival and inflammation.  </li>
+<li><strong>Experimental focus:</strong>  </li>
+<li>Determine the role of Memory CD4 T cell-derived TNF in activating apoptotic and inflammatory signaling in CD14+ monocytes.  </li>
+<li>Measure expression of pro-apoptotic markers (BID), chemokines (CCL5), and NF-κB inhibitors (NFKBIA).  </li>
+<li>Test blockade of TNFRSF1A/B to assess functional consequences on monocyte phenotype.</li>
+</ul>
+<hr />
+<h3>3. Hypothesis 3:</h3>
+<p><strong>IL4 signaling through IL2RG receptor complex from Memory CD4 T cells induces alternative (M2-like) activation and metabolic reprogramming in CD14+ monocytes.</strong></p>
+<ul>
+<li><strong>Rationale from data:</strong>  </li>
+<li>IL4 → IL2RG has a high LR weight (~1.61), indicating strong ligand-receptor engagement.  </li>
+<li>Downstream IL4 targets in monocytes include CD163, CD86, SOCS1, TLR2, and metabolism-related genes (ALDH2, CYP27A1), and signaling regulators (DUSP6, SGK1) with moderate weights (~0.17–0.26).  </li>
+<li><strong>Biological background:</strong>  </li>
+<li>IL4 is a canonical cytokine inducing alternative (M2) macrophage polarization, enhancing anti-inflammatory and tissue repair functions.  </li>
+<li>IL2RG (common gamma chain) is part of the receptor complex mediating IL4 signaling.  </li>
+<li>SOCS1 and DUSP6 regulate cytokine signaling and feedback inhibition.  </li>
+<li><strong>Experimental focus:</strong>  </li>
+<li>Investigate IL4-mediated alternative activation markers (CD163, CD86) and metabolic genes in monocytes after Memory CD4 T cell interaction.  </li>
+<li>Assess signaling pathways downstream of IL2RG, including STAT6 and MAPK via DUSP6 regulation.  </li>
+<li>Examine functional consequences on monocyte cytokine secretion and phagocytic capacity.</li>
+</ul>
+<hr />
+<h3>Summary Table of Top Predicted Ligand-Receptor Pairs and Pathways:</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Ligand</th>
+<th>Receptor</th>
+<th>LR Weight</th>
+<th>Key Downstream Targets in Monocytes</th>
+<th>Predicted Pathway Branch</th>
+<th>Biological Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>CD80</td>
+<td>CD28</td>
+<td>1.592</td>
+<td>MYC, FOS, NFKBIA, PIM1</td>
+<td>NF-κB, AP-1, cell survival</td>
+<td>Monocyte activation and survival</td>
+</tr>
+<tr>
+<td>2</td>
+<td>TNF</td>
+<td>TNFRSF1A/B</td>
+<td>1.401/1.04</td>
+<td>BID, BIRC3, CCL5, FOS, JUNB, NFKBIA, IL1B</td>
+<td>Apoptosis, NF-κB, inflammation</td>
+<td>Pro-inflammatory and apoptotic signaling</td>
+</tr>
+<tr>
+<td>3</td>
+<td>IL4</td>
+<td>IL2RG</td>
+<td>1.613</td>
+<td>CD163, CD86, SOCS1, TLR2, DUSP6, SGK1</td>
+<td>STAT6, MAPK, metabolic reprogramming</td>
+<td>Alternative monocyte activation (M2-like)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>These hypotheses provide a focused framework to experimentally dissect how Memory CD4 T cells modulate CD14+ monocyte functions via ligand-receptor interactions and subsequent intracellular pathways, with potential relevance to immune regulation and inflammation in peripheral blood.</p>
+<p>If you want, I can also suggest experimental approaches or suitable assays for testing these hypotheses.</p>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 17:02:46
+        </div>
+    </div>
+</body>
+</html>

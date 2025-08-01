@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ollama LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 16:29:32</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">qwen2.5:14b</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.4</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">1500</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context size</div>
+                    <div class="metadata-value">131,072 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Seed</div>
+                    <div class="metadata-value">512</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">s2c2</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">96.79 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">4,480 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">1,120</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>Significant branches file:</strong> results/run_20250731_162719/sender_Memory_CD4_T_receiver_CD14_Mono_NA/LLM_significant_branches.csv (5,067 chars)</p>
+            <p><strong>Total content processed:</strong> 5,067 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>Ollama LLM Response</h2>
+            <p>Based on the provided cell-cell crosstalk data file and my understanding of cellular communication in neurodegenerative diseases, I can generate three biologically meaningful hypotheses centered around Memory CD4 T-CD14+ Mono interactions in Peripheral Blood Mononuclear Cells (PBMCs). The focus will be on the top ligand-receptor pairs with associated downstream pathways that are likely to play a significant role in cell-cell communication and disease progression.</p>
+<h3>Hypothesis 1: TNF/TNFRSF1A Signaling Pathway Modulates Inflammatory Responses</h3>
+<p><strong>Ligand-Receptor Pair:</strong> TNF - TNFRSF1A</p>
+<p><strong>Downstream Pathways:</strong>
+- MAPK signaling pathway (Branch paths: TRAF2, MAP3K1, MAP2K4)
+- Apoptosis (Branch path: FADD, CASP8)</p>
+<p><strong>Hypothesis Statement:</strong>
+The interaction between TNF and its receptor TNFRSF1A in Memory CD4 T cells and CD14+ Monocytes within PBMCs significantly modulates inflammatory responses through the activation of MAPK signaling pathways. This pathway is crucial for downstream effects such as cell proliferation, differentiation, and apoptosis regulation.</p>
+<p><strong>Rationale:</strong>
+TNF is a key cytokine involved in inflammation and immune response modulation. Its interaction with TNFRSF1A can activate multiple downstream signaling cascades including MAPK pathways which are critical for cellular processes like survival and death decisions. In neurodegenerative diseases, excessive inflammatory responses mediated by TNF/TNFRSF1A may contribute to neuronal damage.</p>
+<h3>Hypothesis 2: IFNG/IFNGR Signaling Pathway Influences Osteoclast Differentiation</h3>
+<p><strong>Ligand-Receptor Pair:</strong> IFNG - IFNGR (IFNGR1 and IFNGR2)</p>
+<p><strong>Downstream Pathways:</strong>
+- Osteoclast differentiation (Branch paths: STAT1, TRAF2, RAC1, NCF2/NCF1)
+- NF-kappa_B signaling pathway (Branch path: TRAF2, MAP3K7, IKBKB, NFKBIA, NFKB1)</p>
+<p><strong>Hypothesis Statement:</strong>
+The interaction between IFNG and its receptors (IFNGR1/IFNGR2) in Memory CD4 T cells and CD14+ Monocytes within PBMCs influences osteoclast differentiation through the activation of STAT1 and NF-kappa_B signaling pathways. This pathway is essential for regulating immune responses and bone remodeling, which may have implications in neurodegenerative diseases where bone health can be compromised.</p>
+<p><strong>Rationale:</strong>
+IFNG plays a critical role in orchestrating immune responses by activating IFNGRs on target cells. The downstream activation of STAT1 and NF-kappa_B pathways are crucial for the differentiation of osteoclasts, which could indirectly affect neuronal health through systemic inflammation and bone remodeling processes.</p>
+<h3>Hypothesis 3: LTB/LTBR Interaction Regulates Inflammatory Responses via NF-κB Pathway</h3>
+<p><strong>Ligand-Receptor Pair:</strong> LTB - LTBR</p>
+<p><strong>Downstream Pathways:</strong>
+- NF-kappa_B signaling pathway (Branch path: TRAF2, MAP3K7, IKBKB, NFKBIA, NFKB1)</p>
+<p><strong>Hypothesis Statement:</strong>
+The interaction between LTB and its receptor LTBR in Memory CD4 T cells and CD14+ Monocytes within PBMCs regulates inflammatory responses through the activation of NF-κB signaling pathways. This pathway is pivotal for immune regulation and could be a critical mediator of neuroinflammation in neurodegenerative diseases.</p>
+<p><strong>Rationale:</strong>
+LTB, similar to TNF, is involved in inducing inflammation but has distinct roles in immune modulation. The interaction with LTBR can activate NF-κB signaling pathways that are central to the regulation of inflammatory responses and immune cell activity. Dysregulation of this pathway could contribute to chronic inflammation observed in neurodegenerative diseases.</p>
+<h3>Experimental Approach</h3>
+<p>To investigate these hypotheses, one would need to:
+1. <strong>Isolate Memory CD4 T cells and CD14+ Monocytes from PBMCs</strong> using flow cytometry or magnetic bead separation.
+2. <strong>Stimulate isolated cells with TNF, IFNG, and LTB</strong> and measure the activation of downstream signaling pathways (e.g., MAPK, NF-κB) through Western blotting or ELISA for phosphorylated proteins.
+3. <strong>Assess cellular responses</strong>, such as proliferation, apoptosis, and cytokine production using cell viability assays, caspase activity assays, and multiplex cytokine arrays.
+4. <strong>Use genetic approaches</strong> like CRISPR-Cas9 to knock out key signaling molecules (e.g., TRAF2) in primary cells or relevant cell lines to understand their functional roles.</p>
+<p>These hypotheses provide a framework for understanding the complex interplay between Memory CD4 T-CD14+ Mono interactions and how they might contribute to neurodegenerative diseases through specific pathways.</p>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 16:29:32
+        </div>
+    </div>
+</body>
+</html>

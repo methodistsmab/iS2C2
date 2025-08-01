@@ -1,38 +1,57 @@
 ## iS2C2 With OpenAI LLM tutorial
+>To learn more about S2C2, please visit the [S2C2](https://github.com/methodistsmab/S2C2)
 
-This demonstration uses the OpenAI API via Openrouter platform, which supports the [models](https://openrouter.ai/models).
+This demonstration utilizes the OpenAI API through the Openrouter platform, which supports various [models](https://openrouter.ai/models).
 
+## Prerequisites
+- Python 3.9
+- Conda package manager
+- Internet connection for downloading packages and models
 
+---
 
-### Prepare the API Key
-Please navigate to the [Openrouter Key website](https://openrouter.ai/settings/keys) and create your own Gemini API key.
+## Installation Dependencies 
+### Step 1: Set Up Python Environment
+Create and activate a conda environment:
 
->Please put your API key in the `.env` file for security purposes.
-
-
-Put your API key in a .env file as OPENROUTER_API_KEY="your-openrouter-api-key", then run:
 ```bash
-source .env
+conda create -n is2c2 python=3.9
+conda activate is2c2
 ```
+
+### Step 2: Install Python Dependencies
+Install the required Python packages:
+
 ```bash
-export TEMP_OPENROUTER_API_KEY="$OPENROUTER_API_KEY"
+pip install -q -r requirements.txt
 ```
+---
 
-check your API Key 
+## Prepare the API Key
+Please navigate to the [Openrouter Key website](https://openrouter.ai/settings/keys) and create your own Openrouter API key.
+
+
+Refer to this [PDF tutorial](../how-to-get-Openrouter-key.pdf) for step-by-step instructions on obtaining your Openrouter API key.
+
+
+## Data 
+The iS2C2 example data are available in [Google Drive](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link).
+
+**Download the example data** and place it in your working directory before proceeding with the analysis.
+
+
+## Usage
+Make the pipeline executable:
+
 ```bash
-curl https://openrouter.ai/api/v1/credits \
-     -H "Authorization: Bearer $TEMP_OPENROUTER_API_KEY"
+chmod +x iS2C2.sh
 ```
-A successful response should return something like: `{"data":{"total_credits":xxx,"total_usage":0.xxxx}}% `
-
-> Also, keep eyes on your credits activity on this site: [key-activity](https://openrouter.ai/activity)
-
-### Running LLM Hypothesis Generation with S2C2
+Running LLM Hypothesis Generation with S2C2
 
 Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-0iJnIPnU5s9LmlGEUx8/view?usp=share_link)
 ```bash
 ./iS2C2.sh \
-  --rds-file "./pbmc_control_example_clean_7_21_25" \
+  --rds-file "./pbmc_control_example_clean_7_21_25.rds" \
   --celltype-colname "seurat_annotations" \
   --condition-colname "condition" \
   --condition1 "control" \
@@ -41,12 +60,14 @@ Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-
   --receiver "CD14+ Mono" \
   --species "human" \
   --assay "RNA" \
-  --disease "AD" \
-  --cell-type "astrocyte-excitatory neuron" \
-  --disease-context "Alzheimer's disease" \
+  --cell-type "Memory CD4 T-CD14+ Mono" \
+  --disease-context "Peripheral Blood Mononuclear Cells" \
   --model "openai/gpt-4.1-mini" \
   --algorithm "s2c2"
+  --api-key "xxxxxx-(your-openrouter-api-key)"
 ```
+
+Explain about the parameters as follows: 
 ```bash
 ./iS2C2.sh \
   --rds-file "example.rds (The Seurat RDS file containing single-cell RNA sequencing data)" \
@@ -63,5 +84,10 @@ Quick run with the [example data](https://drive.google.com/file/d/1Ejcch9g5_kcj-
   --algorithm "s2c2" \
   --llm-provider "openrouter" \
   --model "openai/gpt-4.1-mini"  \
-  --api-key "$TEMP_OPENROUTER_API_KEY"
+  --api-key "(your-openrouter-api-key)"
 ```
+
+## Expected Output
+For more details, see the [example report](../../output/openai_s2c2/llm_report_openrouter_Memory_CD4_T_CD14+_Mono_Peripheral_Blood_Mononuclear_Cells_openai_gpt_41_mini_s2c2_20250731_164239.html).
+
+![example-output](../../screenshots/output/iS2C2/openrouter/ollama-s2c2.png)

@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-green.svg)](https://www.python.org/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-orange.svg)](https://ollama.ai/)
 [![Gemini](https://img.shields.io/badge/Gemini-API-red.svg)](https://ai.google.dev/gemini-api/docs)
+[![OpenRouter](https://img.shields.io/badge/OpenRouter-API-purple.svg)](https://openrouter.ai/)
 
 
 ## Table of Contents
@@ -25,6 +26,7 @@
   - [Expected Output](#expected-output)
   - [Acknowledgements](#acknowledgements)
   - [Citation](#citation)
+
 ## Introduction
 
 This repository provides a **fully automated pipeline for hypothesis generation from cell-cell communication (CCC) data using large language models (LLMs)**, built for **scalability, transparency, and ease of use**. The current version supports single-cell and spatial transcriptomics data, including 10x datasets for human and mouse samples.
@@ -34,14 +36,14 @@ Unlike traditional approaches that require manual interpretation of omics data o
 ## Key Features
 
 - **✅ Fully Automated Workflows with API Integration**  
-The pipeline is optimized for **completely automated execution** via **local OpenModels (e.g., Ollama)** and **API Call Functions (e.g., Gemini)**, streamlining the entire process from input data to hypothesis generation.  
+The pipeline is optimized for **completely automated execution** via **local OpenModels (e.g., Ollama)** and **API Call Functions (e.g., Gemini, OpenRouter)**, streamlining the entire process from input data to hypothesis generation.  
  *Note: Chatbox interfaces for ChatGPT or KIMI can be used but require some **manual steps** for interaction.*
 
 - **✅ Example Datasets and Transparent Tutorials**  
 Includes curated **example datasets** and **step-by-step tutorials** with **clear outputs at every stage**, enabling easy testing, customization, and reproducibility.
 
 - **✅ Multi-Source CCC Compatibility**  
-Seamlessly integrates outputs from multiple CCC pipelines such as [S2C2](https://github.com/methodistsmab/S2C2), **LIANA+**, and **NicheNet**, enabling flexible use of various upstream analyses before LLM-powered hypothesis generation.
+Seamlessly integrates outputs from multiple CCC pipelines such as **[S2C2](https://github.com/methodistsmab/S2C2)**, **[LIANA+](https://liana-py.readthedocs.io/en/latest/)**, and **[NicheNet](https://github.com/saeyslab/nichenetr)**, enabling flexible use of various upstream analyses before LLM-powered hypothesis generation.
 
 - **✅ Fully compatible with both single-cell and spatial transcriptomics datasets**  
 Supports seamless analysis and hypothesis generation for both data types without additional configuration.
@@ -63,7 +65,7 @@ This approach was optimized for accuracy, repeatability, and interpretability. W
 
 ## Update
 
-**[2025.07.22]** The current iS2C2 supports S2C2 with LLM interpretation, LIANA+ with LLM interpretation, and NicheNet with LLM interpretation. The current version supports single-cell and spatial transcriptomics data for both human and mouse samples, and will generate 3 hypotheses for each cell-cell communication prediction
+**[2024.12.22]** The current iS2C2 supports S2C2 with LLM interpretation, LIANA+ with LLM interpretation, and NicheNet with LLM interpretation. The current version supports single-cell and spatial transcriptomics data for both human and mouse samples, and will generate 3 hypotheses for each cell-cell communication prediction.
 
 ---
 
@@ -78,28 +80,6 @@ This approach was optimized for accuracy, repeatability, and interpretability. W
 > **Platform Compatibility**: This platform is optimized for **macOS and Linux** systems. Windows users are recommended to use the S2C2 GUI interface and chatbox functionality for optimal performance.
 
 ---
-
-## Tutorial
-
-### Running cell-cell interaction using iS2C2
-
-- [iS2C2 with local OpenModel (Ollama as the example)](./tutorial/iS2C2/iS2C2-ollama-tutorial.md)
-- [iS2C2 with API Call Function (Gemini as the example)](./tutorial/iS2C2/iS2C2-gemini-tutorial.md)
-- [iS2C2 with Chatbox](./tutorial/iS2C2/iS2C2-chatbox-tutorial.md)
-
-### Running cell-cell interaction using LIANA+ and LLMs
-
-- [LIANA+ with local OpenModel (Ollama as the example)](./tutorial/LIANA_plus/liana-plus-ollama-tutorial.md)
-- [LIANA+ with API Call Function (Gemini as the example)](./tutorial/LIANA_plus/liana-plus-gemini-tutorial.md)
-- [LIANA+ with Chatbox](./tutorial/LIANA_plus/liana-plus-chatbox-tutorial.md)
-
-### Running cell-cell interaction using NicheNet and LLMs
-
-- [NicheNet with local OpenModel (Ollama as the example)](./tutorial/NicheNet/nichenet-ollama-tutorial.md)
-- [NicheNet with API Call Function (Gemini as the example)](./tutorial/NicheNet/nichenet-gemini-tutorial.md)
-- [NicheNet with Chatbox](./tutorial/NicheNet/nichenet-chatbox-tutorial.md)
-
---- 
 
 ## Installation
 
@@ -125,6 +105,36 @@ pip install -r requirements.txt
 2. Download the installer for your operating system
 3. Follow the installation instructions included with the downloaded installer
 
+---
+## Tutorial
+
+### Running cell-cell interaction using iS2C2
+
+- [iS2C2 with local OpenModel (Ollama as the example)](./tutorial/iS2C2/iS2C2-ollama-tutorial.md)
+- [iS2C2 with API Call Function](./tutorial/iS2C2/iS2C2-gemini-tutorial.md)
+  - [Gemini as the example](./tutorial/iS2C2/iS2C2-gemini-tutorial.md)
+  - [OpenRouter using OpenAI LLM API as the example](./tutorial/iS2C2/iS2C2-openrouter-tutorial.md)
+- [iS2C2 with Chatbox](./tutorial/iS2C2/iS2C2-chatbox-tutorial.md)
+
+### Running cell-cell interaction using LIANA+ and LLMs
+
+- [LIANA+ with local OpenModel (Ollama as the example)](./tutorial/LIANA_plus/liana-plus-ollama-tutorial.md)
+- [LIANA+ with API Call Function](./tutorial/LIANA_plus/liana-plus-gemini-tutorial.md)
+  - [Gemini as the example](./tutorial/LIANA_plus/liana-plus-gemini-tutorial.md)
+  - [OpenRouter using OpenAI LLM API as the example](./tutorial/LIANA_plus/liana-plus-openrouter-tutorial.md)
+- [LIANA+ with Chatbox](./tutorial/LIANA_plus/liana-plus-chatbox-tutorial.md)
+
+### Running cell-cell interaction using NicheNet and LLMs
+
+- [NicheNet with local OpenModel (Ollama as the example)](./tutorial/NicheNet/nichenet-ollama-tutorial.md)
+- [NicheNet with API Call Function](./tutorial/NicheNet/nichenet-gemini-tutorial.md)
+  - [Gemini as the example](./tutorial/NicheNet/nichenet-gemini-tutorial.md)
+  - [OpenRouter using OpenAI LLM API as the example](./tutorial/NicheNet/nichenet-openrouter-tutorial.md)
+- [NicheNet with Chatbox](./tutorial/NicheNet/nichenet-chatbox-tutorial.md)
+
+
+---
+
 ## Expected Output
 
 The **final report** is generated in the file:  
@@ -133,7 +143,7 @@ The **final report** is generated in the file:
 This file contains a structured summary of the hypotheses generated by the pipeline.
 
 ### ✅ Example Report Output
-![example](./example-main-output.png)
+![example](/screenshots/example-main-output.png)
 
 ## Acknowledgements
 
@@ -145,6 +155,7 @@ We are deeply grateful for the open source software that powers our research and
 - [Seurat](https://satijalab.org/seurat/)
 - [SeuratData](https://github.com/satijalab/seurat-data)
 - [Ollama](https://ollama.com/)
+- [OpenRouter](https://openrouter.ai/)
 
 ## Citation
 

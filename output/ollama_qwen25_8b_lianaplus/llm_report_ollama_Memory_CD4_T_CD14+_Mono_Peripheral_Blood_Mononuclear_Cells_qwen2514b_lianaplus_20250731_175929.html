@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama LLM Hypothesis Generation Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .metadata {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        .metadata h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .metadata-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+        }
+        .metadata-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .metadata-value {
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .file-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #27ae60;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ollama LLM Hypothesis Generation Report</h1>
+        
+        <div class="metadata">
+            <h3>Analysis Parameters</h3>
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <div class="metadata-label">Generated at</div>
+                    <div class="metadata-value">2025-07-31 18:00:59</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Cell communication type</div>
+                    <div class="metadata-value">Memory CD4 T-CD14+ Mono</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Disease context</div>
+                    <div class="metadata-value">Peripheral Blood Mononuclear Cells</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Model</div>
+                    <div class="metadata-value">qwen2.5:14b</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Temperature</div>
+                    <div class="metadata-value">0.4</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Max tokens</div>
+                    <div class="metadata-value">1500</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Context size</div>
+                    <div class="metadata-value">131,072 tokens</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Seed</div>
+                    <div class="metadata-value">512</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Algorithm</div>
+                    <div class="metadata-value">lianaplus</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Processing time</div>
+                    <div class="metadata-value">89.68 seconds</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Response length</div>
+                    <div class="metadata-value">2,793 characters</div>
+                </div>
+                <div class="metadata-item">
+                    <div class="metadata-label">Estimated tokens</div>
+                    <div class="metadata-value">698</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-info">
+            <h3>Input Files Processed</h3>
+            <p><strong>Significant branches file:</strong> /Users/zhihaowan/Desktop/Project/iS2C2-backup/pbmc-process/PBMC_memory_cd4_to_cd14_mono.csv (6,634 chars)</p>
+            <p><strong>Total content processed:</strong> 6,634 characters</p>
+        </div>
+
+        <div class="content">
+            <h2>Ollama LLM Response</h2>
+            <p>Based on the provided cell-cell crosstalk data between Memory CD4 T cells and CD14+ Monocytes in Peripheral Blood Mononuclear Cells (PBMCs), we can formulate hypotheses centered around key ligand-receptor pairs that show significant interaction probabilities (<code>lr_probs</code>) and p-values (<code>cellchat_pvals</code>). Here are three biologically meaningful hypotheses with associated downstream pathways:</p>
+<h3>Hypothesis 1: HMGB1-CXCR4 Interaction Regulates Inflammatory Responses</h3>
+<p><strong>Ligand-Receptor Pair:</strong> HMGB1 (ligand) - CXCR4 (receptor)</p>
+<ul>
+<li><strong>Biological Significance:</strong> Highligand-receptor interaction probability and p-value indicate a strong potential for HMGB1 to bind CXCR4, which is known to be involved in inflammatory responses. HMGB1 acts as an alarmin that can activate immune cells through binding to various receptors including CXCR4.</li>
+<li><strong>Downstream Pathway:</strong> The activation of CXCR4 by HMGB1 could lead to the downstream NF-κB pathway activation, promoting inflammation and cytokine production.</li>
+</ul>
+<p><strong>Hypothesis 2: ANXA1-FPR1 Interaction Modulates Monocyte Migration</strong>
+<strong>Ligand-Receptor Pair:</strong> ANXA1 (ligand) - FPR1 (receptor)</p>
+<ul>
+<li><strong>Biological Significance:</strong> The interaction between Annexin A1 (ANXA1), a potent anti-inflammatory mediator, and its receptor Formyl Peptide Receptor 1 (FPR1) is well-documented. This interaction can regulate monocyte migration and inflammation.</li>
+<li><strong>Downstream Pathway:</strong> ANXA1 binding to FPR1 could inhibit the activation of MAPK pathways, leading to reduced chemotaxis and inflammatory responses in CD14+ Monocytes.</li>
+</ul>
+<p><strong>Hypothesis 3: MIF-CXCR4 Interaction Influences Immune Cell Activation</strong>
+<strong>Ligand-Receptor Pair:</strong> MIF (ligand) - CXCR4 (receptor)</p>
+<ul>
+<li><strong>Biological Significance:</strong> Macrophage Migration Inhibitory Factor (MIF) is a cytokine that can bind to CXCR4 and influence immune cell activation, proliferation, and migration. The high interaction probability suggests a strong potential for this binding in the context of Memory CD4 T cells and CD14+ Monocytes.</li>
+<li><strong>Downstream Pathway:</strong> MIF-CXCR4 signaling could activate JAK/STAT pathways leading to increased cytokine production and immune cell activation.</li>
+</ul>
+<h3>Experimental Approaches</h3>
+<p>For each hypothesis, you would want to validate these interactions using techniques such as:
+- Co-immunoprecipitation (CoIP) assays to confirm direct binding between ligands and receptors.
+- Functional studies like migration assays or cytokine secretion analysis to assess the biological impact of these interactions.
+- Gene expression profiling to investigate changes in downstream pathway activation.</p>
+<p>These hypotheses provide a focused direction for further investigation into the mechanisms by which Memory CD4 T cells communicate with CD14+ Monocytes, potentially influencing immune responses and inflammation.</p>
+        </div>
+
+        <div class="timestamp">
+            Report generated on 2025-07-31 at 18:00:59
+        </div>
+    </div>
+</body>
+</html>
