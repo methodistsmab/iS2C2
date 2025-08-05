@@ -1,0 +1,33 @@
+# S2C2-LLM Integration Python Requirements
+# Essential packages for Ollama API communication and local-ollama.py
+
+# HTTP requests for Ollama API
+requests>=2.28.0
+
+# Note: The following are built-in Python modules, no installation needed:
+# - argparse (command-line parsing)
+# - json (JSON handling) 
+# - os (operating system interface)
+# - time (time-related functions)
+# - datetime (date and time handling)
+
+# Optional: For enhanced HTTPS support (usually included with requests)
+# urllib3>=1.26.0
+# certifi>=2022.12.7
+
+google-generativeai>=0.7.0
+
+google-genai>=1.26.0
+
+python-dotenv>=1.1.1
+
+# ollama
+ollama >=0.5.1
+
+# OpenAI SDK for OpenRouter integration
+openai>=1.94.0
+
+
+markdown
+
+escape

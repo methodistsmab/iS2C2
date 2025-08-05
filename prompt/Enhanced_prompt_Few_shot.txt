@@ -1,0 +1,117 @@
+# Ligand–Receptor Hypothesis Generation Prompt  
+**{celltype1-celltype2} ({disease} Context)**
+
+You are provided with a cell–cell crosstalk data file:  `LLM_significant_branches.csv`  
+This file contains predicted **ligand–receptor (LR)** interactions and their downstream **Branch_path** signaling cascades between **celltype1(sender)** and **celltype2 (receiver)** in **disease**.
+
+Your task is to generate **three distinct, biologically meaningful hypotheses**. Each hypothesis must be based on:
+
+- A unique **ligand–receptor pair** (from the data)
+- A valid **Branch_path** (from the data)
+- A fully developed downstream mechanistic explanation, grounded in **{disease} biology**
+
+
+---
+
+## Step-by-Step Instructions
+
+### Step 1: Filter Valid Ligand–Receptor Pairs
+
+- Load `LLM_significant_branches.csv`.
+- Extract only LR pairs that meet the following criteria:
+  - The pair is present in the file.
+  - The pair has a **non-null Pathway Activity Score (PAS)**.
+  - The pair has a valid downstream **Branch_path** (genes separated by `___`).
+- Then prioritize candidate LR pairs using composite ranking:
+  - Compute a composite score:
+	- Rank(**PAS score** descending) + Rank(**p_val** ascending)
+  - Sort by this composite score (ascending).
+- Select the **top 3 unique ligand–receptor pairs**, each with their **best-scoring Branch_path**.
+  - Enforce uniqueness using:
+    ```python
+    assert len(set(top_3[["ligand", "receptor"]].itertuples(index=False))) == 3
+    ```
+  - First prefer 3 unique LR pairs, each with the best Branch_path.
+  - If <3 unique LR pairs exist, select multiple Branch_path values from the same LR pair, as long as:
+	- Each (ligand, receptor, Branch_path) is unique
+	- Each is among the top-ranked composite scores
+- **You must not generate hypotheses using any ligand–receptor pair unless it appears in this filtered list.**
+
+---
+
+### Step 2: Select One Valid LR Pair
+
+For each of the **three selected LR pairs**, generate one hypothesis using **only** the corresponding `Branch_path` from the filtered top 3.
+
+- Enforce validation before generating:
+  ```python
+  assert (ligand, receptor, branch_path) in set(top_3[["ligand", "receptor", "Branch_path"]].itertuples(index=False))
+
+
+1. **Must Exist in Data with PAS** 
+   - The LR–Branch_path must appear in the filtered DataFrame.  
+   - **Never invent or substitute** a biologically plausible pair that is not in the file.
+
+2. **Biological Relevance**  
+   - The pair should be plausibly linked to **disease** mechanisms (e.g., inflammation, oxidative stress, synaptic loss, glial activation).  
+
+3. **Unique Branch Path**  
+   - The LR pair must map to a **distinct** `Branch_path` not used for another hypothesis.
+   - You must only generate hypotheses from three distinct ligand–receptor pairs, each using their best-scoring Branch_path.  
+
+4. **Exclude Examples**  
+   - Do **not** use LR pairs already described in the analogical reasoning examples.  
+
+**Report the following for each selection:**
+- Ligand and receptor
+- Full `Branch_path`
+- PAS and p_val
+- A brief rationale for selecting this pair
+
+---
+
+### Step 3: Generate a Mechanistic Hypothesis
+
+
+For the selected ligand–receptor pair, write a **comprehensive mechanistic hypothesis** covering the following:
+
+1. The **disease**-related cellular stressors that induce the ligand in the sender cell type.
+2. The biological function of the receptor in the receiver cell type.
+3. A **gene-by-gene breakdown** of the full Branch_path.
+4. The final gene’s effect on the receiver cell type function.
+5. The broader implication of this signaling cascade on **disease** pathology.
+6. Follow similar logic structure shown in the **reference analogical examples**. 
+
+Be mechanistic, multi-step, and emphasize **directional causality** from ligand to phenotype. Do not summarize; fully elaborate all six elements for each hypothesis.
+
+
+---
+
+## Repeat Until You Have Three Hypotheses
+
+Repeat **Steps 2–3** until you have generated:
+- Each with a **unique, distinct ligand–receptor pair**
+- Each with a **distinct Branch_path**
+- All derived strictly from the data
+- All biologically grounded in **disease** mechanisms
+
+Ensure the output is continuous and structured step-by-step, **without skipping validation or reusing branches**.
+
+---
+
+## Forbidden Actions
+
+- Do **not** hallucinate or invent ligand–receptor pairs  
+- Do **not** use any pair lacking a PAS in the file  
+- Do **not** reuse any `Branch_path`  
+- Do **not** reference external knowledge as justification for including missing data
+- Do **not** include:
+ - `display_dataframe_to_user`, `print()`, `open()`, or any display/output command
+ - Any pauses, intermediate summaries, or confirmations
+ - Any message not part of the **three final hypotheses**
+
+---
+## Auto-continue until all three hypotheses are generated without pausing or awaiting user confirmation.
+> The final output must be a **continuous block** of:
+> - Step-by-step generation of all 3 hypotheses
+> - No breaks, no tool invocations, no outputs aside from hypothesis content

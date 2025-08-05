@@ -1,0 +1,1 @@
+Based on the provided cell-cell crosstalk data file {NicheNet_LR.csv}, {NicheNet_LT.csv} between {celltype} communication in {disease}, generate three biologically meaningful hypotheses to investigate by predicting the top 3 ligand-receptor pairs with an associated downstream pathway branch to target based on the data, and your background biological knowledge.
