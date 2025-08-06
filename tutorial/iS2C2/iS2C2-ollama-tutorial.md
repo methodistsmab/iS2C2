@@ -72,7 +72,9 @@ ollama serve
 ollama pull llama3.2
 ```
 
-> **Note**: If you want to use additional models, please refer to the detailed model information on https://ollama.com/search, download your preferred model using `ollama pull <model-name>`, and then specify it using the `--model` parameter in your command.
+> **Note**: If you want to use additional models, please refer to the detailed model information on https://ollama.com/search, download your preferred model using `ollama pull <model-name>`, and then specify it using the `--model` parameter in your command. 
+
+> **Note**: If you have access to advanced computing resources such as high-memory GPUs (H100, A100), we recommend using large-parameter open-source models like GPT-oss 120B, Qwen-72B, and DeepSeek-V3-671B to optimize performance and accuracy.
 
 ### Step 3: Prepare the Pipeline
 Make the pipeline executable:
