@@ -10,19 +10,18 @@
 
 ## Table of Contents
 - [iS2C2: A Co-Intelligent Platform for Mechanistic Discovery of Disease Cellular Crosstalk](#is2c2-a-co-intelligent-platform-for-mechanistic-discovery-of-disease-cellular-crosstalk)
-  - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Key Features](#key-features)
   - [Overview](#overview)
   - [Update](#update)
   - [System Requirements](#system-requirements)
+  - [Installation](#installation)
+    - [LLM tool package install](#llm-tool-package-install)
+    - [Ollama download & Install](#ollama-download--install)
   - [Tutorial](#tutorial)
     - [Running cell-cell interaction using iS2C2](#running-cell-cell-interaction-using-is2c2)
     - [Running cell-cell interaction using LIANA+ and LLMs](#running-cell-cell-interaction-using-liana-and-llms)
     - [Running cell-cell interaction using NicheNet and LLMs](#running-cell-cell-interaction-using-nichenet-and-llms)
-  - [Installation](#installation)
-    - [LLM tool package install](#llm-tool-package-install)
-    - [Ollama download & Install](#ollama-download--install)
   - [Expected Output](#expected-output)
   - [Acknowledgements](#acknowledgements)
   - [Citation](#citation)
@@ -65,7 +64,7 @@ This approach was optimized for accuracy, repeatability, and interpretability. W
 
 ## Update
 
-**[2024.12.22]** The current iS2C2 supports S2C2 with LLM interpretation, LIANA+ with LLM interpretation, and NicheNet with LLM interpretation. The current version supports single-cell and spatial transcriptomics data for both human and mouse samples, and will generate 3 hypotheses for each cell-cell communication prediction.
+**[2025.8.1]** The current iS2C2 supports S2C2 with LLM interpretation, LIANA+ with LLM interpretation, and NicheNet with LLM interpretation. The current version supports single-cell and spatial transcriptomics data for both human and mouse samples, and will generate 3 hypotheses for each cell-cell communication prediction.
 
 ---
 
